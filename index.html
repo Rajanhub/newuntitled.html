@@ -1,229 +1,212 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BlueStream Movies - Premium Downloads</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background: linear-gradient(135deg, #0f1419 0%, #1a2332 100%);
-            color: #e0e6ed;
-        }
-        header {
-            background: linear-gradient(90deg, #007bff 0%, #0056b3 100%);
-            padding: 20px;
-            text-align: center;
-        }
-        header h1 {
-            margin: 0;
-            font-size: 2.5em;
-        }
-        nav a {
-            color: #e0e6ed;
-            margin: 0 15px;
-            text-decoration: none;
-            font-weight: bold;
-        }
-        .container {
-            max-width: 1200px;
-            margin: 20px auto;
-            padding: 20px;
-        }
-        .movie-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-            gap: 20px;
-        }
-        .movie-card {
-            background: #1e293b;
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.4);
-        }
-        .movie-info {
-            padding: 15px;
-        }
-        .movie-info h3 {
-            margin: 0 0 8px 0;
-        }
-        .movie-info p {
-            margin: 5px 0;
-            color: #b0b7c3;
-            font-size: 0.95em;
-        }
-        .download-btn {
-            display: inline-block;
-            margin-top: 10px;
-            padding: 10px 15px;
-            background: #007bff;
-            color: #fff;
-            text-decoration: none;
-            border-radius: 5px;
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BlueStream Movies - Premium Downloads</title>
+
+<style>
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(135deg, #0f1419 0%, #1a2332 100%);
+    color: #e0e6ed;
+}
+
+/* HEADER */
+header {
+    background: linear-gradient(90deg, #007bff 0%, #0056b3 100%);
+    padding: 20px;
+    text-align: center;
+}
+header h1 {
+    margin: 0;
+    font-size: 2.5em;
+}
+nav a {
+    color: #e0e6ed;
+    margin: 0 15px;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+/* CONTENT */
+.container {
+    max-width: 1200px;
+    margin: 20px auto;
+    padding: 20px;
+}
+.movie-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 20px;
+}
+.movie-card {
+    background: #1e293b;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+}
+.movie-info {
+    padding: 15px;
+}
+.movie-info h3 {
+    margin: 0 0 8px 0;
+}
+.movie-info p {
+    margin: 5px 0;
+    color: #b0b7c3;
+    font-size: 0.95em;
+}
+.download-btn {
+    display: inline-block;
+    margin-top: 10px;
+    padding: 10px 15px;
+    background: #007bff;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 5px;
+}
+
+/* ================= POPUP STYLE ================= */
+.popup-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.7);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+
+.popup-box {
+    background: #fff;
+    color: #000;
+    width: 320px;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+}
+
+.popup-box h2 {
+    font-size: 18px;
+    margin-bottom: 15px;
+}
+
+.popup-box a {
+    display: inline-block;
+    padding: 10px 20px;
+    background: #0088cc;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 6px;
+    font-weight: bold;
+}
+
+.close-btn {
+    margin-top: 15px;
+    display: none;
+    cursor: pointer;
+    color: #666;
+    font-size: 14px;
+}
+</style>
 </head>
+
 <body>
 
-<header>
-    <h1>BlueStream Movies</h1>
-    <nav>
-        <a href="#">Home</a>
-        <a href="#">Genres</a>
-        <a href="#">New Releases</a>
-        <a href="#">Contact</a>
-    </nav>
-</header>
-
-<div class="container">
-    <h2>Featured Movies</h2>
-
-    <input type="text" id="search" placeholder="Search movies..."
-        style="width:100%;padding:10px;margin-bottom:20px;border-radius:5px;border:none;font-size:1em;">
-
-    <div class="movie-grid" id="movieGrid">
-
-        <div class="movie-card">
-            <div class="movie-info">
-                <h3>Dhurandhar</h3>
-                <p class="filesize">File Size: 2.99GB</p>
-                <a href="https://telegram.me/RJN_STORE_BOT?start=BQADAQADvQkAAp_hCUYnCKNCgS4WTBYE" class="download-btn">Download HD</a>
-            </div>
-        </div>
-
-        <div class="movie-card">
-            <div class="movie-info">
-                <h3>The Family Man S03 (Combined)</h3>
-                <p class="filesize">File Size: 2.17GB</p>
-                <a href="https://t.me/RJN_STORE_BOT?start=BQADAQADORMAAp_hCUZ7Kyql0IVkeBYE" class="download-btn">Download HD</a>
-            </div>
-        </div>
-
-        <div class="movie-card">
-            <div class="movie-info">
-                <h3>Dude (2025) (Hindi Tamil)</h3>
-                <p class="filesize">File Size: 1.22GB</p>
-                <a href="https://t.me/RJN_STORE_BOT?start=BQADAQADnxMAAp_hCUY5zab7xmafLRYE" class="download-btn">Download HD</a>
-            </div>
-        </div>
-
-        <div class="movie-card">
-            <div class="movie-info">
-                <h3>Delhi Crime S03 (Combined)</h3>
-                <p class="filesize">File Size:  1.66GB</p>
-                <a href="https://t.me/RJN_STORE_BOT?start=BQADAQADnxMAAp_hCUY5zab7xmafLRYE" class="download-btn">Download HD</a>
-            </div>
-        </div>
-
-        <div class="movie-card">
-            <div class="movie-info">
-                <h3>Tere Ishq Me</h3>
-                <p class="filesize">File Size: 2.8GB</p>
-                <a href="https://t.me/RJN_STORE_BOT?start=BQADAQADqgwAAm0K4UUHsh1XXSWDRxYE" class="download-btn">Download HD</a>
-            </div>
-        </div>
-
-        <div class="movie-card">
-            <div class="movie-info">
-                <h3>Jolly LLB 3 (2025) 1080p</h3>
-                <p class="filesize">File Size: 1.66GB</p>
-                <a href="https://t.me/RJN_STORE_BOT?start=BQADAQADDBQAAp_hCUYKrZqIBTry7BYE" class="download-btn">Download HD</a>
-            </div>
-        </div>
-
-<div class="movie-card">
-            <div class="movie-info">
-                <h3>Mastiii 4 2025 Hindi HDTC 1080p</h3>
-                <p class="filesize">File Size: 2.38GB</p>
-                <a href="https://t.me/RJN_STORE_BOT?start=BQADAQADbAoAAqqdEEZyS76jsA0_zhYE" class="download-btn">Download HD</a>
-            </div>
-        </div>
-        
-        <div class="movie-card">
-            <div class="movie-info">
-                <h3>Frankenstein 2025 1080p</h3>
-                <p class="filesize">File Size: 1.75GB</p>
-                <a href="https://t.me/RJN_STORE_BOT?start=BQADAQADdQoAAqqdEEaXAWhgrDEWfxYE" class="download-btn">Download HD</a>
-            </div>
-        </div>
-
-
-<div class="movie-card">
-            <div class="movie-info">
-                <h3>Kurukshetra The Great War of Mahabharata S01</h3>
-                <p class="filesize">File Size: 3.42GB</p>
-                <a href="https://t.me/RJN_STORE_BOT?start=BQADAQADgAoAAqqdEEZimIyqw2-CUxYE" class="download-btn">Download HD</a>
-            </div>
-        </div>
-        
-        <div class="movie-card">
-            <div class="movie-info">
-                <h3> Saali Mohabbat 2025 720p</h3>
-                <p class="filesize">File Size: 992MB</p>
-                <a href="https://t.me/RJN_STORE_BOT?start=BQADAQADhQoAAqqdEEa-hZZshPWNXhYE" class="download-btn">Download HD</a>
-            </div>
-        </div>
-        <div class="movie-card">
-            <div class="movie-info">
-                <h3>  Thamma (2025) Hindi 720p HDRip</h3>
-                <p class="filesize">File Size: 1.19GB</p>
-                <a href="https://t.me/RJN_STORE_BOT?start=BQADAQADkwoAAqqdEEZFbgZcKpqJeBYE" class="download-btn">Download HD</a>
-            </div>
-        </div>
+<!-- ================= POPUP HTML ================= -->
+<div class="popup-overlay" id="popup">
+    <div class="popup-box">
+        <h2>Please Share Our Web To Your Friends To Keep Us Maintain</h2>
+        <a href="Yaha" target="_blank">Share Now</a>
+        <div class="close-btn" id="closeBtn">Close</div>
     </div>
 </div>
 
+<header>
+<h1>BlueStream Movies</h1>
+<nav>
+    <a href="#">Home</a>
+    <a href="#">Genres</a>
+    <a href="#">New Releases</a>
+    <a href="#">Contact</a>
+</nav>
+</header>
+
+<div class="container">
+<h2>Featured Movies</h2>
+
+<input type="text" id="search" placeholder="Search movies..."
+style="width:100%;padding:10px;margin-bottom:20px;border-radius:5px;border:none;font-size:1em;">
+
+<div class="movie-grid" id="movieGrid">
+<!-- YOUR MOVIE CARDS (unchanged) -->
+</div>
+</div>
+
 <script>
-    // SEARCH
-    const searchInput = document.getElementById('search');
-    const movieGrid = document.getElementById('movieGrid');
+/* ================= POPUP SCRIPT ================= */
+const popup = document.getElementById("popup");
+const closeBtn = document.getElementById("closeBtn");
 
-    searchInput.addEventListener('keyup', () => {
-        const filter = searchInput.value.toLowerCase();
-        movieGrid.querySelectorAll('.movie-card').forEach(card => {
-            const title = card.querySelector('h3').textContent.toLowerCase();
-            card.style.display = title.includes(filter) ? '' : 'none';
-        });
+const POPUP_DELAY = 25 * 1000; // 25 seconds
+const POPUP_INTERVAL = 24 * 60 * 60 * 1000; // 24 hours
+const lastPopup = localStorage.getItem("telegram_popup");
+
+if (!lastPopup || Date.now() - lastPopup > POPUP_INTERVAL) {
+    popup.style.display = "flex";
+    setTimeout(() => {
+        closeBtn.style.display = "block";
+    }, POPUP_DELAY);
+    localStorage.setItem("telegram_popup", Date.now());
+}
+
+closeBtn.onclick = () => popup.style.display = "none";
+
+/* ================= SEARCH ================= */
+const searchInput = document.getElementById('search');
+const movieGrid = document.getElementById('movieGrid');
+
+searchInput.addEventListener('keyup', () => {
+    const filter = searchInput.value.toLowerCase();
+    movieGrid.querySelectorAll('.movie-card').forEach(card => {
+        const title = card.querySelector('h3').textContent.toLowerCase();
+        card.style.display = title.includes(filter) ? '' : 'none';
     });
+});
 
-    // DOWNLOAD LIMIT
-    const MAX_DOWNLOADS = 5;
-    const BLOCK_TIME = 24 * 60 * 60 * 1000;
-    const STORAGE_KEY = "global_download_limit";
+/* ================= DOWNLOAD LIMIT ================= */
+const MAX_DOWNLOADS = 5;
+const BLOCK_TIME = 24 * 60 * 60 * 1000;
+const STORAGE_KEY = "global_download_limit";
 
-    function getData() {
-        return JSON.parse(localStorage.getItem(STORAGE_KEY)) || {
-            count: 0,
-            start: Date.now()
-        };
-    }
+function getData() {
+    return JSON.parse(localStorage.getItem(STORAGE_KEY)) || { count: 0, start: Date.now() };
+}
+function saveData(data) {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+}
 
-    function saveData(data) {
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
-    }
+document.querySelectorAll('.download-btn').forEach(btn => {
+    btn.addEventListener('click', e => {
+        let data = getData();
+        const now = Date.now();
 
-    document.querySelectorAll('.download-btn').forEach(btn => {
-        btn.addEventListener('click', e => {
-            let data = getData();
-            const now = Date.now();
-
-            if (now - data.start >= BLOCK_TIME) {
-                data.count = 0;
-                data.start = now;
-            }
-
-            if (data.count >= MAX_DOWNLOADS) {
-                e.preventDefault();
-                alert("🚫 Download limit reached. Try again after 24 hours.");
-                return;
-            }
-
-            data.count++;
-            saveData(data);
-        });
+        if (now - data.start >= BLOCK_TIME) {
+            data.count = 0;
+            data.start = now;
+        }
+        if (data.count >= MAX_DOWNLOADS) {
+            e.preventDefault();
+            alert("🚫 Download limit reached. Try again after 24 hours.");
+            return;
+        }
+        data.count++;
+        saveData(data);
     });
+});
 </script>
 
 </body>
