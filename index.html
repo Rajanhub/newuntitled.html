@@ -63,12 +63,6 @@
             text-decoration: none;
             border-radius: 5px;
         }
-        footer {
-            text-align: center;
-            padding: 20px;
-            background: #0f1419;
-            color: #b0b7c3;
-        }
     </style>
 </head>
 <body>
@@ -82,33 +76,27 @@
         <a href="#">Contact</a>
     </nav>
 </header>
+
 <div class="container">
     <h2>Featured Movies</h2>
 
-    <!-- Search bar -->
-    <input type="text" id="search" placeholder="Search movies..." style="
-        width: 100%;
-        padding: 10px;
-        margin-bottom: 20px;
-        border-radius: 5px;
-        border: none;
-        font-size: 1em;
-    ">
+    <input type="text" id="search" placeholder="Search movies..."
+        style="width:100%;padding:10px;margin-bottom:20px;border-radius:5px;border:none;font-size:1em;">
 
     <div class="movie-grid" id="movieGrid">
 
         <div class="movie-card">
             <div class="movie-info">
                 <h3>Dhurandhar</h3>
-                <p class="filesize"></p>
+                <p class="filesize">File Size: 2.99GB</p>
                 <a href="https://telegram.me/RJN_STORE_BOT?start=BQADAQADvQkAAp_hCUYnCKNCgS4WTBYE" class="download-btn">Download HD</a>
             </div>
         </div>
 
         <div class="movie-card">
             <div class="movie-info">
-                <h3> The Family Man S03 COMBINED</h3>
-                <p class="filesize"></p>
+                <h3>The Family Man S03 (Combined)</h3>
+                <p class="filesize">File Size: 2.17GB</p>
                 <a href="https://t.me/RJN_STORE_BOT?start=BQADAQADORMAAp_hCUZ7Kyql0IVkeBYE" class="download-btn">Download HD</a>
             </div>
         </div>
@@ -116,15 +104,15 @@
         <div class="movie-card">
             <div class="movie-info">
                 <h3>Dude (2025) (Hindi Tamil)</h3>
-                <p class="filesize"></p>
+                <p class="filesize">File Size: 1.22GB</p>
                 <a href="https://t.me/RJN_STORE_BOT?start=BQADAQADnxMAAp_hCUY5zab7xmafLRYE" class="download-btn">Download HD</a>
             </div>
         </div>
-        
-                <div class="movie-card">
+
+        <div class="movie-card">
             <div class="movie-info">
-                <h3>Delhi Crime S03 COMBINED</h3>
-                <p class="filesize"></p>
+                <h3>Delhi Crime S03 (Combined)</h3>
+                <p class="filesize">File Size:  1.66GB</p>
                 <a href="https://t.me/RJN_STORE_BOT?start=BQADAQADnxMAAp_hCUY5zab7xmafLRYE" class="download-btn">Download HD</a>
             </div>
         </div>
@@ -137,79 +125,106 @@
             </div>
         </div>
 
-<div class="movie-card">
+        <div class="movie-card">
             <div class="movie-info">
-                <h3>Jolly.LLB.3.2025.1080p</h3>
-                <p class="filesize"></p>
+                <h3>Jolly LLB 3 (2025) 1080p</h3>
+                <p class="filesize">File Size: 1.66GB</p>
                 <a href="https://t.me/RJN_STORE_BOT?start=BQADAQADDBQAAp_hCUYKrZqIBTry7BYE" class="download-btn">Download HD</a>
             </div>
-</div>
+        </div>
+
+<div class="movie-card">
+            <div class="movie-info">
+                <h3>Mastiii 4 2025 Hindi HDTC 1080p</h3>
+                <p class="filesize">File Size: 2.38GB</p>
+                <a href="https://t.me/RJN_STORE_BOT?start=BQADAQADbAoAAqqdEEZyS76jsA0_zhYE" class="download-btn">Download HD</a>
+            </div>
+        </div>
         
+        <div class="movie-card">
+            <div class="movie-info">
+                <h3>Frankenstein 2025 1080p</h3>
+                <p class="filesize">File Size: 1.75GB</p>
+                <a href="https://t.me/RJN_STORE_BOT?start=BQADAQADdQoAAqqdEEaXAWhgrDEWfxYE" class="download-btn">Download HD</a>
+            </div>
+        </div>
+
+
+<div class="movie-card">
+            <div class="movie-info">
+                <h3>Kurukshetra The Great War of Mahabharata S01</h3>
+                <p class="filesize">File Size: 3.42GB</p>
+                <a href="https://t.me/RJN_STORE_BOT?start=BQADAQADgAoAAqqdEEZimIyqw2-CUxYE" class="download-btn">Download HD</a>
+            </div>
+        </div>
+        
+        <div class="movie-card">
+            <div class="movie-info">
+                <h3> Saali Mohabbat 2025 720p</h3>
+                <p class="filesize">File Size: 992MB</p>
+                <a href="https://t.me/RJN_STORE_BOT?start=BQADAQADhQoAAqqdEEa-hZZshPWNXhYE" class="download-btn">Download HD</a>
+            </div>
+        </div>
+        <div class="movie-card">
+            <div class="movie-info">
+                <h3>  Thamma (2025) Hindi 720p HDRip</h3>
+                <p class="filesize">File Size: 1.19GB</p>
+                <a href="https://t.me/RJN_STORE_BOT?start=BQADAQADkwoAAqqdEEZFbgZcKpqJeBYE" class="download-btn">Download HD</a>
+            </div>
+        </div>
+    </div>
+</div>
 
 <script>
-    // Random file sizes
-    const sizes = ["2.17GB", "1.22GB", "2.4GB", "3.6GB", "4.2GB", "5.1GB"];
-    document.querySelectorAll(".filesize").forEach(el => {
-        if(!el.textContent) {
-            const randomSize = sizes[Math.floor(Math.random() * sizes.length)];
-            el.textContent = "File Size: " + randomSize;
-        }
-    });
-
-    // Search functionality
+    // SEARCH
     const searchInput = document.getElementById('search');
     const movieGrid = document.getElementById('movieGrid');
-    searchInput.addEventListener('keyup', function() {
+
+    searchInput.addEventListener('keyup', () => {
         const filter = searchInput.value.toLowerCase();
-        const movies = movieGrid.querySelectorAll('.movie-card');
-        movies.forEach(movie => {
-            const title = movie.querySelector('h3').textContent.toLowerCase();
-            movie.style.display = title.includes(filter) ? '' : 'none';
+        movieGrid.querySelectorAll('.movie-card').forEach(card => {
+            const title = card.querySelector('h3').textContent.toLowerCase();
+            card.style.display = title.includes(filter) ? '' : 'none';
         });
     });
 
-    // ================= GLOBAL DOWNLOAD LIMIT =================
+    // DOWNLOAD LIMIT
     const MAX_DOWNLOADS = 5;
-    const BLOCK_TIME = 24 * 60 * 60 * 1000; // 24 hours
+    const BLOCK_TIME = 24 * 60 * 60 * 1000;
     const STORAGE_KEY = "global_download_limit";
 
-    function getDownloadData() {
+    function getData() {
         return JSON.parse(localStorage.getItem(STORAGE_KEY)) || {
             count: 0,
-            startTime: Date.now()
+            start: Date.now()
         };
     }
 
-    function saveDownloadData(data) {
+    function saveData(data) {
         localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
     }
 
     document.querySelectorAll('.download-btn').forEach(btn => {
-        btn.addEventListener('click', function(e) {
-            let data = getDownloadData();
+        btn.addEventListener('click', e => {
+            let data = getData();
             const now = Date.now();
 
-            // Reset after 24h
-            if (now - data.startTime >= BLOCK_TIME) {
+            if (now - data.start >= BLOCK_TIME) {
                 data.count = 0;
-                data.startTime = now;
+                data.start = now;
             }
 
             if (data.count >= MAX_DOWNLOADS) {
                 e.preventDefault();
-
-                const remaining = BLOCK_TIME - (now - data.startTime);
-                const hours = Math.floor(remaining / (1000 * 60 * 60));
-                const minutes = Math.floor((remaining % (1000 * 60 * 60)) / (1000 * 60));
-
-                alert(`🚫 Download limit reached!\n\nTry again in ${hours}h ${minutes}m`);
+                alert("🚫 Download limit reached. Try again after 24 hours.");
                 return;
             }
 
             data.count++;
-            saveDownloadData(data);
+            saveData(data);
         });
     });
 </script>
+
 </body>
-    </html>
+</html>
