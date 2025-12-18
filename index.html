@@ -237,54 +237,76 @@
     </div>  
 </div>
 
-</div>  <script>  
-    // SEARCH  
-    const searchInput = document.getElementById('search');  
-    const movieGrid = document.getElementById('movieGrid');  
-  
-    searchInput.addEventListener('keyup', () => {  
-        const filter = searchInput.value.toLowerCase();  
-        movieGrid.querySelectorAll('.movie-card').forEach(card => {  
-            const title = card.querySelector('h3').textContent.toLowerCase();  
-            card.style.display = title.includes(filter) ? '' : 'none';  
-        });  
-    });  
-  
-    // DOWNLOAD LIMIT  
-    const MAX_DOWNLOADS = 5;  
-    const BLOCK_TIME = 24 * 60 * 60 * 1000;  
-    const STORAGE_KEY = "global_download_limit";  
-  
-    function getData() {  
-        return JSON.parse(localStorage.getItem(STORAGE_KEY)) || {  
-            count: 0,  
-            start: Date.now()  
-        };  
-    }  
-  
-    function saveData(data) {  
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(data));  
-    }  
-  
-    document.querySelectorAll('.download-btn').forEach(btn => {  
-        btn.addEventListener('click', e => {  
-            let data = getData();  
-            const now = Date.now();  
-  
-            if (now - data.start >= BLOCK_TIME) {  
-                data.count = 0;  
-                data.start = now;  
-            }  
-  
-            if (data.count >= MAX_DOWNLOADS) {  
-                e.preventDefault();  
-                alert("🚫 Download limit reached. Try again after 24 hours.");  
-                return;  
-            }  
-  
-            data.count++;  
-            saveData(data);  
-        });  
-    });  
-</script>  </body>  
+</div>  <script>
+/* ================= SEARCH ================= */
+const searchInput = document.getElementById('search');
+const movieGrid = document.getElementById('movieGrid');
+
+searchInput.addEventListener('keyup', () => {
+    const filter = searchInput.value.toLowerCase();
+    movieGrid.querySelectorAll('.movie-card').forEach(card => {
+        const title = card.querySelector('h3').textContent.toLowerCase();
+        card.style.display = title.includes(filter) ? '' : 'none';
+    });
+});
+
+/* ============ DOWNLOAD LIMIT LOGIC ============ */
+const MAX_DOWNLOADS = 10;                 // 10 downloads
+const BLOCK_TIME = 4 * 60 * 60 * 1000;    // 4 hours
+const STORAGE_KEY = "download_limit_v2";
+
+function getData() {
+    return JSON.parse(localStorage.getItem(STORAGE_KEY)) || {
+        count: 0,
+        blockedUntil: 0
+    };
+}
+
+function saveData(data) {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+}
+
+function formatTime(ms) {
+    const totalSeconds = Math.ceil(ms / 1000);
+    const h = Math.floor(totalSeconds / 3600);
+    const m = Math.floor((totalSeconds % 3600) / 60);
+    const s = totalSeconds % 60;
+    return `${h}h ${m}m ${s}s`;
+}
+
+document.querySelectorAll('.download-btn').forEach(btn => {
+    btn.addEventListener('click', e => {
+        let data = getData();
+        const now = Date.now();
+
+        /* IF BLOCKED */
+        if (data.blockedUntil && now < data.blockedUntil) {
+            e.preventDefault();
+            const remaining = data.blockedUntil - now;
+            alert(`🚫 Download blocked!\nTry again after ${formatTime(remaining)}`);
+            return;
+        }
+
+        /* RESET AFTER BLOCK ENDS */
+        if (data.blockedUntil && now >= data.blockedUntil) {
+            data.count = 0;
+            data.blockedUntil = 0;
+        }
+
+        /* COUNT DOWNLOAD */
+        data.count++;
+
+        /* HIT LIMIT */
+        if (data.count >= MAX_DOWNLOADS) {
+            data.blockedUntil = now + BLOCK_TIME;
+            saveData(data);
+            alert("⏳ 10 downloads completed!\nDownloads blocked for 4 hours.");
+            e.preventDefault();
+            return;
+        }
+
+        saveData(data);
+    });
+});
+</script></body>  
 </html>
