@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="hi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Cartoon Network</title>
+
+  <style>
+    body { font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; display:flex;align-items:center;justify-content:center;min-height:100vh;background:#111;color:#fff;margin:0; }
+    .player-wrap { width: 90%; max-width: 900px; }
+    video { width:100%; height:auto; background: #000; border-radius:8px; box-shadow: 0 6px 20px rgba(0,0,0,0.6); }
+    .info { margin-top:10px; font-size:14px; color:#ddd; display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap; }
+    button { background:#1f7bd1;border:none;color:white;padding:8px 12px;border-radius:6px;cursor:pointer; }
+  </style>
+</head>
+<body>
+  <div class="player-wrap">
+    <video id="video" controls playsinline></video>
+
+    <div class="info">
+      <div>Stream: <strong>By , @RJN_STORE_BOT</strong></div>
+      <div>
+        <button id="playBtn">Play</button>
+        <button id="muteBtn">Mute/Unmute</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- hls.js from CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/hls.js@1.4.6/dist/hls.min.js"></script>
+  <script>
+    // Replace with your m3u8 URL:
+    const streamUrl = "https://allottplay.com/tv/toffee/live.php?id=cartoon_network_sd&e=.m3u8";
+
+    const video = document.getElementById('video');
+    const playBtn = document.getElementById('playBtn');
+    const muteBtn = document.getElementById('muteBtn');
+
+    // Play button handler (helps with autoplay policies)
+    playBtn.addEventListener('click', () => {
+      video.play().catch(e => console.log('Play failed:', e));
+    });
+    muteBtn.addEventListener('click', () => {
+      video.muted = !video.muted;
+    });
+
+    // If browser (Safari/iOS) supports HLS natively, set src directly
+    if (video.canPlayType('application/vnd.apple.mpegurl')) {
+      video.src = streamUrl;
+      // optional: load immediately
+      video.addEventListener('loadedmetadata', () => {
+        console.log('Native HLS ready');
+      });
+    } else if (Hls.isSupported()) {
+      const hls = new Hls({
+        // optional config (debug:false etc)
+      });
+      hls.loadSource(streamUrl);
+      hls.attachMedia(video);
+      hls.on(Hls.Events.MANIFEST_PARSED, function() {
+        console.log('HLS manifest parsed, ready to play');
+        // don't autoplay forcibly; use the Play button to satisfy autoplay policies
+      });
+      hls.on(Hls.Events.ERROR, function(event, data) {
+        console.error('hls.js error', event, data);
+      });
+    } else {
+      // Very old browser
+      console.error('HLS not supported in this browser');
+      alert('Aapka browser HLS stream nahi chala paa raha. Chrome/Firefox/Edge (latest) try karein ya Safari par dekhein.');
+    }
+  </script>
+</body>
+</html>
