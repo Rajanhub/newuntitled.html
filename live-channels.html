@@ -1,17 +1,107 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Live Channels</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Premium Cartoon Channels</title>
+
+<style>
+body {
+    margin: 0;
+    height: 100vh;
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(135deg, #fbc2eb, #a6c1ee);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #333;
+}
+
+.container {
+    background: rgba(255, 255, 255, 0.25);
+    backdrop-filter: blur(15px);
+    border-radius: 20px;
+    padding: 40px 30px;
+    width: 90%;
+    max-width: 400px;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+}
+
+h1 {
+    font-size: 26px;
+    margin-bottom: 25px;
+}
+
+/* Button Style */
+.button {
+    width: 100%;
+    padding: 15px;
+    margin: 10px 0;
+    border-radius: 30px;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+    background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+    color: #fff;
+    transition: 0.3s;
+    text-decoration: none;
+    display: block;
+}
+
+.button:hover {
+    transform: scale(1.05);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+
+/* Channels */
+.channel-buttons {
+    display: none;
+    margin-top: 15px;
+}
+
+.channel-buttons.show {
+    display: block;
+    animation: fadeIn 0.4s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+</style>
 </head>
+
 <body>
 
-  <h1>Live Chnnels</h1>
+<div class="container">
+    <h1>Cartoon Channels</h1>
 
-  <p>
-    Live Channels.
-  </p>
+    <button class="button" id="toggle-btn">
+        Click Me For Live Channels
+    </button>
 
-  <a href="newuntitled.html">← Back to Home</a>
+    <div class="channel-buttons" id="channel-options">
+        <a class="button" href="xcn.xml" target="_blank">
+            Cartoon Network
+        </a>
+        <a class="button" href="https://www.discoverykids.in/" target="_blank">
+            Pogo
+        </a>
+        <a class="button" href="https://www.nickindia.com/" target="_blank">
+            Nick
+        </a>
+                <a class="button" href="https://t.me/RJN_STORE_BOT" target="_blank">
+            Join Telegram 
+        </a>
+    </div>
+</div>
+
+<script>
+document.getElementById("toggle-btn").addEventListener("click", function () {
+    document.getElementById("channel-options").classList.toggle("show");
+});
+</script>
 
 </body>
 </html>
