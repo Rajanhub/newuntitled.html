@@ -718,8 +718,8 @@ searchInput.addEventListener('keyup', () => {
 });
 
 /* ============ DOWNLOAD LIMIT LOGIC ============ */
-const MAX_DOWNLOADS = 10;                 // 10 downloads
-const BLOCK_TIME = 4 * 60 * 60 * 1000;    // 4 hours
+const MAX_DOWNLOADS = 40;                 // 40 downloads
+const BLOCK_TIME = 10 * 60 * 60 * 1000;   // 10 hours
 const STORAGE_KEY = "download_limit_v2";
 
 function getData() {
@@ -738,7 +738,7 @@ function formatTime(ms) {
     const h = Math.floor(totalSeconds / 3600);
     const m = Math.floor((totalSeconds % 3600) / 60);
     const s = totalSeconds % 60;
-    return `${h}h ${m}m ${s}s`;
+    return ${h}h ${m}m ${s}s;
 }
 
 document.querySelectorAll('.download-btn').forEach(btn => {
@@ -750,7 +750,7 @@ document.querySelectorAll('.download-btn').forEach(btn => {
         if (data.blockedUntil && now < data.blockedUntil) {
             e.preventDefault();
             const remaining = data.blockedUntil - now;
-            alert(`🚫 Download blocked!\nTry again after ${formatTime(remaining)}`);
+            alert(🚫 Download blocked!\nTry again after ${formatTime(remaining)});
             return;
         }
 
@@ -767,7 +767,7 @@ document.querySelectorAll('.download-btn').forEach(btn => {
         if (data.count >= MAX_DOWNLOADS) {
             data.blockedUntil = now + BLOCK_TIME;
             saveData(data);
-            alert("⏳ 10 downloads completed!\nDownloads blocked for 4 hours.");
+            alert("⏳ 40 downloads completed!\nDownloads blocked for 10 hours.");
             e.preventDefault();
             return;
         }
@@ -775,19 +775,7 @@ document.querySelectorAll('.download-btn').forEach(btn => {
         saveData(data);
     });
 });
-<!-- Default Statcounter code for RJN STORE BOT
-https://rajanhub.github.io/newuntitled.html/ -->
-<script type="text/javascript">
-var sc_project=13193462; 
-var sc_invisible=1; 
-var sc_security="5c0af94b"; 
-</script>
-<script type="text/javascript"
-src="https://www.statcounter.com/counter/counter.js" async></script>
-<noscript><div class="statcounter"><a title="Web Analytics"
-href="https://statcounter.com/" target="_blank"><img class="statcounter"
-src="https://c.statcounter.com/13193462/0/5c0af94b/1/" alt="Web Analytics"
-referrerPolicy="no-referrer-when-downgrade"></a></div></noscript>
-<!-- End of Statcounter Code -->
+
 </script></body>  
 </html>
+
