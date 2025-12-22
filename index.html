@@ -728,64 +728,7 @@ searchInput.addEventListener('keyup', () => {
     });
 });
 
-/* ============ DOWNLOAD LIMIT LOGIC ============ */
-const MAX_DOWNLOADS = 50;                  // ✅ 50 downloads
-const BLOCK_TIME = 10 * 60 * 60 * 1000;    // ✅ 10 hours
-const STORAGE_KEY = "download_limit_v2";
-
-function getData() {
-    return JSON.parse(localStorage.getItem(STORAGE_KEY)) || {
-        count: 0,
-        blockedUntil: 0
-    };
-}
-
-function saveData(data) {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
-}
-
-function formatTime(ms) {
-    const totalSeconds = Math.ceil(ms / 1000);
-    const h = Math.floor(totalSeconds / 3600);
-    const m = Math.floor((totalSeconds % 3600) / 60);
-    const s = totalSeconds % 60;
-    return `${h}h ${m}m ${s}s`;
-}
-
-document.querySelectorAll('.download-btn').forEach(btn => {
-    btn.addEventListener('click', e => {
-        let data = getData();
-        const now = Date.now();
-
-        /* IF BLOCKED */
-        if (data.blockedUntil && now < data.blockedUntil) {
-            e.preventDefault();
-            const remaining = data.blockedUntil - now;
-            alert(`🚫 Download blocked!\nTry again after ${formatTime(remaining)}`);
-            return;
-        }
-
-        /* RESET AFTER BLOCK ENDS */
-        if (data.blockedUntil && now >= data.blockedUntil) {
-            data.count = 0;
-            data.blockedUntil = 0;
-        }
-
-        /* COUNT DOWNLOAD */
-        data.count++;
-
-        /* HIT LIMIT */
-        if (data.count >= MAX_DOWNLOADS) {
-            data.blockedUntil = now + BLOCK_TIME;
-            saveData(data);
-            alert("⏳ 50 downloads completed!\nDownloads blocked for 10 hours.");
-            e.preventDefault();
-            return;
-        }
-
-        saveData(data);
-    });
-});               <h3>Delhi Crime S03 (Combined)</h3>  
+       <h3>Delhi Crime S03 (Combined)</h3>  
                 <p class="filesize">File Size:  1.66GB</p>  
                 <a href="https://telegram.me/RJN_STORE_BOT?start=BQADAQADnxMAAp_hCUY5zab7xmafLRYE" class="download-btn">Download HD</a>  
             </div>  
@@ -911,63 +854,7 @@ searchInput.addEventListener('keyup', () => {
     });
 });
 
-/* ============ DOWNLOAD LIMIT LOGIC ============ */
-const MAX_DOWNLOADS = 50;                 // ✅ 50 downloads
-const BLOCK_TIME = 10 * 60 * 60 * 1000;   // ✅ 10 hours
-const STORAGE_KEY = "download_limit_v3";
 
-function getData() {
-    return JSON.parse(localStorage.getItem(STORAGE_KEY)) || {
-        count: 0,
-        blockedUntil: 0
-    };
-}
-
-function saveData(data) {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
-}
-
-function formatTime(ms) {
-    const totalSeconds = Math.ceil(ms / 1000);
-    const h = Math.floor(totalSeconds / 3600);
-    const m = Math.floor((totalSeconds % 3600) / 60);
-    const s = totalSeconds % 60;
-    return `${h}h ${m}m ${s}s`;
-}
-
-document.querySelectorAll('.download-btn').forEach(btn => {
-
-    if (btn.classList.contains('disabled')) return;
-
-    btn.addEventListener('click', e => {
-        let data = getData();
-        const now = Date.now();
-
-        if (data.blockedUntil && now < data.blockedUntil) {
-            e.preventDefault();
-            const remaining = data.blockedUntil - now;
-            alert(`🚫 Download blocked!\nTry again after ${formatTime(remaining)}`);
-            return;
-        }
-
-        if (data.blockedUntil && now >= data.blockedUntil) {
-            data.count = 0;
-            data.blockedUntil = 0;
-        }
-
-        data.count++;
-
-        if (data.count >= MAX_DOWNLOADS) {
-            data.blockedUntil = now + BLOCK_TIME;
-            saveData(data);
-            alert("⏳ 50 downloads completed!\nDownloads blocked for 10 hours.");
-            e.preventDefault();
-            return;
-        }
-
-        saveData(data);
-    });
-});
 </script>
 
 </body>
