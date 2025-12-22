@@ -718,17 +718,7 @@
             </div>  
         </div>  
         
- /* ================= SEARCH ================= */
-const searchInput = document.getElementById('search');
-const movieGrid = document.getElementById('movieGrid');
 
-searchInput.addEventListener('keyup', () => {
-    const filter = searchInput.value.toLowerCase();
-    movieGrid.querySelectorAll('.movie-card').forEach(card => {
-        const title = card.querySelector('h3').textContent.toLowerCase();
-        card.style.display = title.includes(filter) ? '' : 'none';
-    });
-});
          <div class="movie-card">  
         <div class="movie-info">  
        <h3>Delhi Crime S03 (Combined)</h3>  
