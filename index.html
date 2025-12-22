@@ -912,9 +912,9 @@ searchInput.addEventListener('keyup', () => {
 });
 
 /* ============ DOWNLOAD LIMIT LOGIC ============ */
-const MAX_DOWNLOADS = 40;                 // 40 downloads
-const BLOCK_TIME = 10 * 60 * 60 * 1000;   // 10 hours
-const STORAGE_KEY = "download_limit_v2";
+const MAX_DOWNLOADS = 50;                 // ✅ 50 downloads
+const BLOCK_TIME = 10 * 60 * 60 * 1000;   // ✅ 10 hours
+const STORAGE_KEY = "download_limit_v3";
 
 function getData() {
     return JSON.parse(localStorage.getItem(STORAGE_KEY)) || {
@@ -932,36 +932,35 @@ function formatTime(ms) {
     const h = Math.floor(totalSeconds / 3600);
     const m = Math.floor((totalSeconds % 3600) / 60);
     const s = totalSeconds % 60;
-    return ${h}h ${m}m ${s}s;
+    return `${h}h ${m}m ${s}s`;
 }
 
 document.querySelectorAll('.download-btn').forEach(btn => {
+
+    if (btn.classList.contains('disabled')) return;
+
     btn.addEventListener('click', e => {
         let data = getData();
         const now = Date.now();
 
-        /* IF BLOCKED */
         if (data.blockedUntil && now < data.blockedUntil) {
             e.preventDefault();
             const remaining = data.blockedUntil - now;
-            alert(🚫 Download blocked!\nTry again after ${formatTime(remaining)});
+            alert(`🚫 Download blocked!\nTry again after ${formatTime(remaining)}`);
             return;
         }
 
-        /* RESET AFTER BLOCK ENDS */
         if (data.blockedUntil && now >= data.blockedUntil) {
             data.count = 0;
             data.blockedUntil = 0;
         }
 
-        /* COUNT DOWNLOAD */
         data.count++;
 
-        /* HIT LIMIT */
         if (data.count >= MAX_DOWNLOADS) {
             data.blockedUntil = now + BLOCK_TIME;
             saveData(data);
-            alert("⏳ 40 downloads completed!\nDownloads blocked for 10 hours.");
+            alert("⏳ 50 downloads completed!\nDownloads blocked for 10 hours.");
             e.preventDefault();
             return;
         }
@@ -969,7 +968,7 @@ document.querySelectorAll('.download-btn').forEach(btn => {
         saveData(data);
     });
 });
+</script>
 
-</script></body>  
+</body>
 </html>
-
