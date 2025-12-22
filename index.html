@@ -698,7 +698,25 @@
 </div>
 
 </div>  <script>
-/* ================= SEARCH ================= */
+
+</script></body>  
+</html>class="movie-card">  
+            <div class="movie-info">  
+                <h3>Wake Up Dead Man A Knives Out Mystery (2025) Hindi</h3>  
+                <p class="filesize">File Size: 1.25GB</p>  
+                <a href="https://telegram.me/RJN_STORE_BOT?start=BQADAQADkAsAAqqdEEY2882UoDWTnhYE" class="download-btn">Download HD</a>  
+            </div>  
+        </div>  
+        <div class="movie-card">  
+            <div class="movie-info">  
+                <h3>Welcome To Derry (2025)</h3>  
+                <p class="filesize">File Size: 2.71GB</p>  
+                <a href="https://telegram.me/RJN_STORE_BOT?start=BQADAQAD3wsAAqqdEEZuh6PgN1rWahYE" class="download-btn">Download HD</a>  
+            </div>  
+        </div>  
+        <div class="movie-card">  
+            <div class="movie-info">  
+ /* ================= SEARCH ================= */
 const searchInput = document.getElementById('search');
 const movieGrid = document.getElementById('movieGrid');
 
@@ -711,8 +729,8 @@ searchInput.addEventListener('keyup', () => {
 });
 
 /* ============ DOWNLOAD LIMIT LOGIC ============ */
-const MAX_DOWNLOADS = 10;                 // 10 downloads
-const BLOCK_TIME = 4 * 60 * 60 * 1000;    // 4 hours
+const MAX_DOWNLOADS = 50;                  // ✅ 50 downloads
+const BLOCK_TIME = 10 * 60 * 60 * 1000;    // ✅ 10 hours
 const STORAGE_KEY = "download_limit_v2";
 
 function getData() {
@@ -760,32 +778,14 @@ document.querySelectorAll('.download-btn').forEach(btn => {
         if (data.count >= MAX_DOWNLOADS) {
             data.blockedUntil = now + BLOCK_TIME;
             saveData(data);
-            alert("⏳ 10 downloads completed!\nDownloads blocked for 4 hours.");
+            alert("⏳ 50 downloads completed!\nDownloads blocked for 10 hours.");
             e.preventDefault();
             return;
         }
 
         saveData(data);
     });
-});
-</script></body>  
-</html>class="movie-card">  
-            <div class="movie-info">  
-                <h3>Wake Up Dead Man A Knives Out Mystery (2025) Hindi</h3>  
-                <p class="filesize">File Size: 1.25GB</p>  
-                <a href="https://telegram.me/RJN_STORE_BOT?start=BQADAQADkAsAAqqdEEY2882UoDWTnhYE" class="download-btn">Download HD</a>  
-            </div>  
-        </div>  
-        <div class="movie-card">  
-            <div class="movie-info">  
-                <h3>Welcome To Derry (2025)</h3>  
-                <p class="filesize">File Size: 2.71GB</p>  
-                <a href="https://telegram.me/RJN_STORE_BOT?start=BQADAQAD3wsAAqqdEEZuh6PgN1rWahYE" class="download-btn">Download HD</a>  
-            </div>  
-        </div>  
-        <div class="movie-card">  
-            <div class="movie-info">  
-                <h3>Delhi Crime S03 (Combined)</h3>  
+});               <h3>Delhi Crime S03 (Combined)</h3>  
                 <p class="filesize">File Size:  1.66GB</p>  
                 <a href="https://telegram.me/RJN_STORE_BOT?start=BQADAQADnxMAAp_hCUY5zab7xmafLRYE" class="download-btn">Download HD</a>  
             </div>  
