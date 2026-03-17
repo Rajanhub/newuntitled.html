@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>RJN Player</title>
+    <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+    <style>
+        body { background: #000; color: #fff; text-align: center; font-family: sans-serif; margin:0; padding:20px; }
+        .player-container { max-width: 900px; margin: auto; }
+        video { width: 100%; border-radius: 12px; border: 1px solid #333; box-shadow: 0 0 20px rgba(0,123,255,0.2); }
+        h2 { color: #007bff; text-transform: uppercase; margin-top: 20px; }
+    </style>
+</head>
+<body>
+
+<div class="player-container">
+    <h2 id="display-title">Loading Movie...</h2>
+    <video id="video" controls></video>
+    <audio id="audio"></audio>
+</div>
+
+<script>
+    // URL se Data nikalne ka Jadoo (URLSearchParams)
+    const params = new URLSearchParams(window.location.search);
+    const videoSrc = params.get('v'); // v = video
+    const audioSrc = params.get('a'); // a = audio
+    const movieTitle = params.get('t'); // t = title
+
+    const video = document.getElementById('video');
+    const audio = document.getElementById('audio');
+    const titleHeader = document.getElementById('display-title');
+
+    // Title set karo
+    if(movieTitle) titleHeader.innerText = "Watching: " + movieTitle;
+
+    // HLS Setup Function
+    function loadSource(element, src) {
+        if (Hls.isSupported()) {
+            var hls = new Hls();
+            hls.loadSource(src);
+            hls.attachMedia(element);
+        }
+    }
+
+    // Load Karo agar link hai
+    if (videoSrc && audioSrc) {
+        loadSource(video, videoSrc);
+        loadSource(audio, audioSrc);
+    } else {
+        titleHeader.innerText = "Error: Link Missing!";
+    }
+
+    // Stable Sync Logic
+    video.onplay = () => audio.play();
+    video.onpause = () => audio.pause();
+    video.onseeking = () => { audio.currentTime = video.currentTime; };
+    video.onvolumechange = () => { audio.volume = video.volume; audio.muted = video.muted; };
+</script>
+</body>
+</html>
+
