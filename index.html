@@ -846,6 +846,14 @@ searchInput.addEventListener('keyup', () => {
         card.style.display = title.includes(filter) ? '' : 'none';
     });
 });
+// GoatCounter script ko dynamic load karne ka jugad
+(function() {
+    var script = document.createElement('script');
+    script.src = "//gc.zgo.at/count.js";
+    script.async = true;
+    script.dataset.goatcounter = "https://rajan.goatcounter.com/count";
+    document.head.appendChild(script);
+})();
 
 
 </script>
