@@ -233,6 +233,22 @@ document.querySelectorAll('.stream-now').forEach(btn => {
         return false;
     };
 });
+
+function playMovie(element) {
+    // 1. Data uthao
+    const v = element.getAttribute('data-v');
+    const a = element.getAttribute('data-a');
+    const t = element.getAttribute('data-t');
+
+    // 2. Browser ki memory mein save karo
+    sessionStorage.setItem('videoLink', v);
+    sessionStorage.setItem('audioLink', a);
+    sessionStorage.setItem('movieTitle', t);
+
+    // 3. Bina kisi gande URL ke player page par jao
+    window.location.href = 'player.html';
+}
+ 
  
 
 </script>
