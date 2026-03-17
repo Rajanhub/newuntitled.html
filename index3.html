@@ -4,6 +4,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">  
     <title>@RJN_STORE_BOT (Web)s - Premium Downloads</title>  
     <style>  
+     .stream-now {
+    cursor: pointer; /* Hath wala icon wapas lane ke liye */
+    user-select: none; /* Text selection block */
+    -webkit-touch-callout: none; /* iOS Safari menu block */
+    -webkit-user-select: none; 
+    -webkit-tap-highlight-color: transparent; /* Mobile click blue box hatao */
+     }
+     
     /* Watch Now Button Styling */
 .stream-now {
     display: inline-block;
@@ -150,11 +158,16 @@
         <h3>Red One (2024)</h3>
         <p>720p | Hindi Dubbed</p>
         
-        <a href="player.html?v=https://s22.nm-cdn11.top/files/81768525/720p/720p.m3u8?in=7a0765d9baa120660ee4686dfa928bdb::ab88ce218e1fde3332a2e5b1633b87c4::1773683045::ni&a=https://s22.nm-cdn11.top/files/81768525/a/3/3.m3u8&t=Red One" class="stream-now">
+        <div class="stream-now" 
+             data-v="https://s22.nm-cdn11.top/files/81768525/720p/720p.m3u8?in=7a0765d9baa120660ee4686dfa928bdb::ab88ce218e1fde3332a2e5b1633b87c4::1773683045::ni" 
+             data-a="https://s22.nm-cdn11.top/files/81768525/a/3/3.m3u8" 
+             data-t="Red One" 
+             onclick="playMovie(this)">
             Watch Now
-        </a>
+        </div>
     </div>
 </div>
+
 
 
 
@@ -201,6 +214,25 @@ document.addEventListener('selectstart', function(e) {
         return false;
     }
 };
+
+ function playMovie(element) {
+    // Data attributes se links uthao
+    const v = element.getAttribute('data-v');
+    const a = element.getAttribute('data-a');
+    const t = element.getAttribute('data-t');
+    
+    // Naya page kholo
+    window.location.href = `player.html?v=${encodeURIComponent(v)}&a=${encodeURIComponent(a)}&t=${encodeURIComponent(t)}`;
+}
+
+// Mobile Long Press ko jadd se khatam karne ke liye extra layer
+document.querySelectorAll('.stream-now').forEach(btn => {
+    btn.oncontextmenu = function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        return false;
+    };
+});
  
 
 </script>
