@@ -21,47 +21,59 @@
 </div>
 
 <script>
-    const params = new URLSearchParams(window.location.search);
-    // Link ko decode karna zaruri hai taaki & aur ? symbols na tutein
-    const vSrc = decodeURIComponent(params.get('v'));
-    const aSrc = decodeURIComponent(params.get('a'));
+    // 1. URL params ki ab zaroorat nahi, seedha memory se data uthao
+    const videoSrc = sessionStorage.getItem('videoLink');
+    const audioSrc = sessionStorage.getItem('audioLink');
+    const movieTitle = sessionStorage.getItem('movieTitle');
 
     const video = document.getElementById('video');
     const audio = document.getElementById('audio');
+    const titleHeader = document.getElementById('display-title'); // Agar HTML mein title h2 hai toh
 
+    // Title dikhane ke liye
+    if(movieTitle && titleHeader) {
+        titleHeader.innerText = "Watching: " + movieTitle;
+    }
+
+    // 2. HLS Load Function
     function loadHls(el, src) {
-        if (Hls.isSupported()) {
-            const hls = new Hls({ enableWorker: true });
+        if (Hls.isSupported() && src) {
+            const hls = new Hls({ 
+                enableWorker: true,
+                lowLatencyMode: true 
+            });
             hls.loadSource(src);
             hls.attachMedia(el);
         }
     }
 
-    // Load initial sources
-    if (vSrc && aSrc) {
-        loadHls(video, vSrc);
-        loadHls(audio, aSrc);
+    // 3. Load Karo agar memory mein link mil gaya
+    if (videoSrc && audioSrc) {
+        loadHls(video, videoSrc);
+        loadHls(audio, audioSrc);
+    } else {
+        // Agar memory khali hai toh wapas bhej do
+        alert("Bhai, pehle Movie select karo!");
+        window.location.href = 'index.html';
     }
 
-    // --- YE HAI ASLI FIX ---
+    // 4. --- START & SYNC LOGIC ---
     function startEverything() {
-        video.muted = false; // Mute hatao
+        video.muted = false; 
         video.play();
         audio.play();
-        audio.currentTime = video.currentTime; // Sync karo
+        audio.currentTime = video.currentTime; 
     }
 
-    // Sync Logic
+    // Sync Events
     video.onplay = () => audio.play();
     video.onpause = () => audio.pause();
     video.onseeking = () => { audio.currentTime = video.currentTime; };
-
-    const params = new URLSearchParams(window.location.search);
-
-// atob() ka matlab hai: Base64 ko wapas Simple Link mein badlo
-const videoSrc = atob(params.get('v'));
-const audioSrc = atob(params.get('a'));
-    
+    video.onvolumechange = () => { 
+        audio.volume = video.volume; 
+        audio.muted = video.muted; 
+    };
 </script>
+
 </body>
 </html>
