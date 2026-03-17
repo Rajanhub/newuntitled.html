@@ -176,56 +176,58 @@
 </div>
 
 </div>  <script>
-/* ================= SEARCH ================= */
+/* ================= 1. SEARCH LOGIC ================= */
 const searchInput = document.getElementById('search');
 const movieGrid = document.getElementById('movieGrid');
 
-searchInput.addEventListener('keyup', () => {
-    const filter = searchInput.value.toLowerCase();
-    movieGrid.querySelectorAll('.movie-card').forEach(card => {
-        const title = card.querySelector('h3').textContent.toLowerCase();
-        card.style.display = title.includes(filter) ? '' : 'none';
+if (searchInput) {
+    searchInput.addEventListener('keyup', () => {
+        const filter = searchInput.value.toLowerCase();
+        movieGrid.querySelectorAll('.movie-card').forEach(card => {
+            const title = card.querySelector('h3').textContent.toLowerCase();
+            card.style.display = title.includes(filter) ? '' : 'none';
+        });
     });
-});
-// Poori website par Right Click / Long Press Block
+}
+
+/* ================= 2. MOVIE PLAY LOGIC (SessionStorage) ================= */
+function playMovie(element) {
+    // Data attributes se links aur title uthao
+    const v = element.getAttribute('data-v');
+    const a = element.getAttribute('data-a');
+    const t = element.getAttribute('data-t');
+
+    // Browser memory mein save karo (Taaki URL saaf rahe)
+    sessionStorage.setItem('videoLink', v);
+    sessionStorage.setItem('audioLink', a);
+    sessionStorage.setItem('movieTitle', t);
+
+    // Player page par bhej do
+    window.location.href = 'player.html';
+}
+
+/* ================= 3. SECURITY (No Right Click / No F12) ================= */
+// Poori site par Right Click aur Long Press Block
 document.addEventListener('contextmenu', function(e) {
     e.preventDefault();
 }, false);
 
-// Text selection bhi block kar do (Aesthetic feel ke liye)
+// Text selection block (Aesthetic feel)
 document.addEventListener('selectstart', function(e) {
     e.preventDefault();
 }, false);
 
- document.onkeydown = function(e) {
-    if(e.keyCode == 123) { // F12 Block
-        return false;
-    }
-    if(e.ctrlKey && e.shiftKey && e.keyCode == 'I'.charCodeAt(0)) { // Ctrl+Shift+I Block
-        return false;
-    }
-    if(e.ctrlKey && e.shiftKey && e.keyCode == 'C'.charCodeAt(0)) { // Ctrl+Shift+C Block
-        return false;
-    }
-    if(e.ctrlKey && e.shiftKey && e.keyCode == 'J'.charCodeAt(0)) { // Ctrl+Shift+J Block
-        return false;
-    }
-    if(e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)) { // Ctrl+U (View Source) Block
+// Keyboard Shortcuts Block (F12, Ctrl+U, etc.)
+document.onkeydown = function(e) {
+    if(e.keyCode == 123 || 
+       (e.ctrlKey && e.shiftKey && (e.keyCode == 'I'.charCodeAt(0) || e.keyCode == 'C'.charCodeAt(0) || e.keyCode == 'J'.charCodeAt(0))) || 
+       (e.ctrlKey && e.keyCode == 'U'.charCodeAt(0))) {
         return false;
     }
 };
 
- function playMovie(element) {
-    // Data attributes se links uthao
-    const v = element.getAttribute('data-v');
-    const a = element.getAttribute('data-a');
-    const t = element.getAttribute('data-t');
-    
-    // Naya page kholo
-    window.location.href = `player.html?v=${encodeURIComponent(v)}&a=${encodeURIComponent(a)}&t=${encodeURIComponent(t)}`;
-}
-
-// Mobile Long Press ko jadd se khatam karne ke liye extra layer
+/* ================= 4. MOBILE LONG PRESS FIX ================= */
+// Buttons par special layer taaki mobile menu na khule
 document.querySelectorAll('.stream-now').forEach(btn => {
     btn.oncontextmenu = function(e) {
         e.preventDefault();
@@ -233,25 +235,8 @@ document.querySelectorAll('.stream-now').forEach(btn => {
         return false;
     };
 });
-
-function playMovie(element) {
-    // 1. Data uthao
-    const v = element.getAttribute('data-v');
-    const a = element.getAttribute('data-a');
-    const t = element.getAttribute('data-t');
-
-    // 2. Browser ki memory mein save karo
-    sessionStorage.setItem('videoLink', v);
-    sessionStorage.setItem('audioLink', a);
-    sessionStorage.setItem('movieTitle', t);
-
-    // 3. Bina kisi gande URL ke player page par jao
-    window.location.href = 'player.html';
-}
- 
- 
-
 </script>
+
 
 </body>
 </html>
