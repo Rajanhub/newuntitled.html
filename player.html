@@ -55,6 +55,13 @@
     video.onplay = () => audio.play();
     video.onpause = () => audio.pause();
     video.onseeking = () => { audio.currentTime = video.currentTime; };
+
+    const params = new URLSearchParams(window.location.search);
+
+// atob() ka matlab hai: Base64 ko wapas Simple Link mein badlo
+const videoSrc = atob(params.get('v'));
+const audioSrc = atob(params.get('a'));
+    
 </script>
 </body>
 </html>
