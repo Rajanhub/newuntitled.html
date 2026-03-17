@@ -1,60 +1,60 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>RJN Player</title>
+    <title>RJN Smart Player</title>
     <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
     <style>
-        body { background: #000; color: #fff; text-align: center; font-family: sans-serif; margin:0; padding:20px; }
-        .player-container { max-width: 900px; margin: auto; }
-        video { width: 100%; border-radius: 12px; border: 1px solid #333; box-shadow: 0 0 20px rgba(0,123,255,0.2); }
-        h2 { color: #007bff; text-transform: uppercase; margin-top: 20px; }
+        body { background: #000; color: #fff; text-align: center; font-family: sans-serif; }
+        .container { max-width: 900px; margin: auto; padding: 20px; }
+        video { width: 100%; border-radius: 10px; border: 1px solid #444; }
+        .btn-sync { background: #e50914; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; margin-top: 10px; }
     </style>
 </head>
 <body>
 
-<div class="player-container">
-    <h2 id="display-title">Loading Movie...</h2>
-    <video id="video" controls></video>
+<div class="container">
+    <h2 id="title">RJN Player</h2>
+    <video id="video" controls muted></video>
     <audio id="audio"></audio>
+    <br>
+    <button class="btn-sync" onclick="startEverything()">Unmute & Play Sync</button>
 </div>
 
 <script>
-    // URL se Data nikalne ka Jadoo (URLSearchParams)
     const params = new URLSearchParams(window.location.search);
-    const videoSrc = params.get('v'); // v = video
-    const audioSrc = params.get('a'); // a = audio
-    const movieTitle = params.get('t'); // t = title
+    // Link ko decode karna zaruri hai taaki & aur ? symbols na tutein
+    const vSrc = decodeURIComponent(params.get('v'));
+    const aSrc = decodeURIComponent(params.get('a'));
 
     const video = document.getElementById('video');
     const audio = document.getElementById('audio');
-    const titleHeader = document.getElementById('display-title');
 
-    // Title set karo
-    if(movieTitle) titleHeader.innerText = "Watching: " + movieTitle;
-
-    // HLS Setup Function
-    function loadSource(element, src) {
+    function loadHls(el, src) {
         if (Hls.isSupported()) {
-            var hls = new Hls();
+            const hls = new Hls({ enableWorker: true });
             hls.loadSource(src);
-            hls.attachMedia(element);
+            hls.attachMedia(el);
         }
     }
 
-    // Load Karo agar link hai
-    if (videoSrc && audioSrc) {
-        loadSource(video, videoSrc);
-        loadSource(audio, audioSrc);
-    } else {
-        titleHeader.innerText = "Error: Link Missing!";
+    // Load initial sources
+    if (vSrc && aSrc) {
+        loadHls(video, vSrc);
+        loadHls(audio, aSrc);
     }
 
-    // Stable Sync Logic
+    // --- YE HAI ASLI FIX ---
+    function startEverything() {
+        video.muted = false; // Mute hatao
+        video.play();
+        audio.play();
+        audio.currentTime = video.currentTime; // Sync karo
+    }
+
+    // Sync Logic
     video.onplay = () => audio.play();
     video.onpause = () => audio.pause();
     video.onseeking = () => { audio.currentTime = video.currentTime; };
-    video.onvolumechange = () => { audio.volume = video.volume; audio.muted = video.muted; };
 </script>
 </body>
 </html>
-
