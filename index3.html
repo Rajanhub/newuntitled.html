@@ -174,7 +174,34 @@ searchInput.addEventListener('keyup', () => {
         card.style.display = title.includes(filter) ? '' : 'none';
     });
 });
+// Poori website par Right Click / Long Press Block
+document.addEventListener('contextmenu', function(e) {
+    e.preventDefault();
+}, false);
 
+// Text selection bhi block kar do (Aesthetic feel ke liye)
+document.addEventListener('selectstart', function(e) {
+    e.preventDefault();
+}, false);
+
+ document.onkeydown = function(e) {
+    if(e.keyCode == 123) { // F12 Block
+        return false;
+    }
+    if(e.ctrlKey && e.shiftKey && e.keyCode == 'I'.charCodeAt(0)) { // Ctrl+Shift+I Block
+        return false;
+    }
+    if(e.ctrlKey && e.shiftKey && e.keyCode == 'C'.charCodeAt(0)) { // Ctrl+Shift+C Block
+        return false;
+    }
+    if(e.ctrlKey && e.shiftKey && e.keyCode == 'J'.charCodeAt(0)) { // Ctrl+Shift+J Block
+        return false;
+    }
+    if(e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)) { // Ctrl+U (View Source) Block
+        return false;
+    }
+};
+ 
 
 </script>
 
