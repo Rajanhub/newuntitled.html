@@ -845,8 +845,9 @@ searchInput.addEventListener('keyup', () => {
         const title = card.querySelector('h3').textContent.toLowerCase();
         card.style.display = title.includes(filter) ? '' : 'none';
     });
-});
-// GoatCounter script ko dynamic load karne ka jugad
+}); // <--- Yahan check kar tune extra code toh nahi chhoda
+
+/* GoatCounter script ko dynamic load karne ka jugad */
 (function() {
     var script = document.createElement('script');
     script.src = "//gc.zgo.at/count.js";
@@ -854,6 +855,7 @@ searchInput.addEventListener('keyup', () => {
     script.dataset.goatcounter = "https://rajan.goatcounter.com/count";
     document.head.appendChild(script);
 })();
+    
 
 
 </script>
