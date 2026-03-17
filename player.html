@@ -4,36 +4,86 @@
     <title>RJN Smart Player</title>
     <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
     <style>
-        body { background: #000; color: #fff; text-align: center; font-family: sans-serif; }
+        body { background: #000; color: #fff; text-align: center; font-family: sans-serif; margin: 0; padding: 0; }
         .container { max-width: 900px; margin: auto; padding: 20px; }
-        video { width: 100%; border-radius: 10px; border: 1px solid #444; }
-        .btn-sync { background: #e50914; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; margin-top: 10px; }
+        video { width: 100%; border-radius: 10px; border: 1px solid #444; background: #111; box-shadow: 0 0 20px rgba(0,0,0,0.5); }
+        .btn-sync { background: #e50914; color: white; border: none; padding: 12px 24px; border-radius: 5px; cursor: pointer; margin-top: 15px; font-weight: bold; font-size: 16px; transition: 0.3s; }
+        .btn-sync:hover { background: #ff0a16; transform: scale(1.05); }
+        #display-title { margin-bottom: 15px; color: #007bff; text-shadow: 0 0 10px rgba(0,123,255,0.3); }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <h2 id="title">RJN Player</h2>
-    <video id="video" controls muted></video>
+    <h2 id="display-title">RJN Player</h2>
+    
+    <video id="video" controls muted playsinline></video>
     <audio id="audio"></audio>
     <br>
-    <button class="btn-sync" onclick="startEverything()">Unmute & Play Sync</button>
+    <button class="btn-sync" onclick="startEverything()">🚀 Unmute & Play Sync</button>
 </div>
 
 <script>
-    // 1. URL params ki ab zaroorat nahi, seedha memory se data uthao
+    // 1. Memory se data uthao
     const videoSrc = sessionStorage.getItem('videoLink');
     const audioSrc = sessionStorage.getItem('audioLink');
     const movieTitle = sessionStorage.getItem('movieTitle');
 
     const video = document.getElementById('video');
     const audio = document.getElementById('audio');
-    const titleHeader = document.getElementById('display-title'); // Agar HTML mein title h2 hai toh
+    const titleHeader = document.getElementById('display-title');
 
-    // Title dikhane ke liye
+    // Title update logic
     if(movieTitle && titleHeader) {
         titleHeader.innerText = "Watching: " + movieTitle;
     }
+
+    // 2. HLS Loading function
+    function loadHls(el, src) {
+        if (Hls.isSupported() && src) {
+            const hls = new Hls({ 
+                enableWorker: true,
+                lowLatencyMode: true 
+            });
+            hls.loadSource(src);
+            hls.attachMedia(el);
+        }
+        else if (el.canPlayType('application/vnd.apple.mpegurl')) {
+            el.src = src;
+        }
+    }
+
+    // 3. ASLI FIX: Redirect logic updated to index3.html
+    if (videoSrc && audioSrc) {
+        loadHls(video, videoSrc);
+        loadHls(audio, audioSrc);
+    } else {
+        // Agar koi direct aye toh index3.html par bhejo
+        alert("Bhai, pehle Movie select karo!");
+        window.location.href = 'index3.html'; 
+    }
+
+    // 4. Sync & Audio Logic
+    function startEverything() {
+        video.muted = false; 
+        video.play();
+        audio.play();
+        audio.currentTime = video.currentTime; 
+    }
+
+    video.onplay = () => audio.play();
+    video.onpause = () => audio.pause();
+    video.onseeking = () => { audio.currentTime = video.currentTime; };
+    
+    // Volume/Mute sync
+    video.onvolumechange = () => { 
+        audio.volume = video.volume; 
+        audio.muted = video.muted; 
+    };
+</script>
+
+</body>
+</html>
 
     // 2. HLS Load Function
     function loadHls(el, src) {
