@@ -58,7 +58,6 @@
         loadHls(video, videoSrc);
         loadHls(audio, audioSrc);
     } else {
-        // Agar koi direct aye toh index3.html par bhejo
         alert("Bhai, pehle Movie select karo!");
         window.location.href = 'index3.html'; 
     }
@@ -75,50 +74,6 @@
     video.onpause = () => audio.pause();
     video.onseeking = () => { audio.currentTime = video.currentTime; };
     
-    // Volume/Mute sync
-    video.onvolumechange = () => { 
-        audio.volume = video.volume; 
-        audio.muted = video.muted; 
-    };
-</script>
-
-</body>
-</html>
-
-    // 2. HLS Load Function
-    function loadHls(el, src) {
-        if (Hls.isSupported() && src) {
-            const hls = new Hls({ 
-                enableWorker: true,
-                lowLatencyMode: true 
-            });
-            hls.loadSource(src);
-            hls.attachMedia(el);
-        }
-    }
-
-    // 3. Load Karo agar memory mein link mil gaya
-    if (videoSrc && audioSrc) {
-        loadHls(video, videoSrc);
-        loadHls(audio, audioSrc);
-    } else {
-        // Agar memory khali hai toh wapas bhej do
-        alert("Bhai, pehle Movie select karo!");
-        window.location.href = 'index.html';
-    }
-
-    // 4. --- START & SYNC LOGIC ---
-    function startEverything() {
-        video.muted = false; 
-        video.play();
-        audio.play();
-        audio.currentTime = video.currentTime; 
-    }
-
-    // Sync Events
-    video.onplay = () => audio.play();
-    video.onpause = () => audio.pause();
-    video.onseeking = () => { audio.currentTime = video.currentTime; };
     video.onvolumechange = () => { 
         audio.volume = video.volume; 
         audio.muted = video.muted; 
