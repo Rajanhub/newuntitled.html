@@ -16,7 +16,6 @@
 
 <div class="container">
     <h2 id="display-title">RJN Player</h2>
-    
     <video id="video" controls muted playsinline></video>
     <audio id="audio"></audio>
     <br>
@@ -24,61 +23,77 @@
 </div>
 
 <script>
-    // 1. Memory se data uthao
-    const videoSrc = sessionStorage.getItem('videoLink');
-    const audioSrc = sessionStorage.getItem('audioLink');
-    const movieTitle = sessionStorage.getItem('movieTitle');
+    // 1. Storage se data uthao (Brave/Soul fix ke liye localStorage zyada behtar hai)
+    const videoSrc = localStorage.getItem('videoLink') || sessionStorage.getItem('videoLink');
+    const audioSrc = localStorage.getItem('audioLink') || sessionStorage.getItem('audioLink');
+    const movieTitle = localStorage.getItem('movieTitle') || sessionStorage.getItem('movieTitle');
 
     const video = document.getElementById('video');
     const audio = document.getElementById('audio');
     const titleHeader = document.getElementById('display-title');
 
-    // Title update logic
     if(movieTitle && titleHeader) {
         titleHeader.innerText = "Watching: " + movieTitle;
     }
 
-    // 2. HLS Loading function
-    function loadHls(el, src) {
+    // 2. Simple & Fast HLS Loader (Tere purane code wala logic)
+    function loadSource(el, src) {
         if (Hls.isSupported() && src) {
             const hls = new Hls({ 
-                enableWorker: true,
-                lowLatencyMode: true 
+                enableWorker: false, // Worker off karne se sync speed badhti hai
+                manifestLoadingMaxRetry: 10
             });
             hls.loadSource(src);
             hls.attachMedia(el);
-        }
-        else if (el.canPlayType('application/vnd.apple.mpegurl')) {
+        } else if (el.canPlayType('application/vnd.apple.mpegurl')) {
             el.src = src;
         }
     }
 
-    // 3. ASLI FIX: Redirect logic updated to index3.html
     if (videoSrc && audioSrc) {
-        loadHls(video, videoSrc);
-        loadHls(audio, audioSrc);
+        loadSource(video, videoSrc);
+        loadSource(audio, audioSrc);
     } else {
         alert("Bhai, pehle Movie select karo!");
         window.location.href = 'index3.html'; 
     }
 
-    // 4. Sync & Audio Logic
+    // 3. ASLI SYNC LOGIC (Har 1 second mein check karega)
     function startEverything() {
         video.muted = false; 
         video.play();
         audio.play();
+        // Force Sync on start
         audio.currentTime = video.currentTime; 
     }
 
-    video.onplay = () => audio.play();
+    // Video play/pause hone par audio ko force sync karo
+    video.onplay = () => {
+        audio.currentTime = video.currentTime;
+        audio.play();
+    };
     video.onpause = () => audio.pause();
-    video.onseeking = () => { audio.currentTime = video.currentTime; };
     
+    // Seeking (Forward/Backward) par 0.1s ka delay taaki audio load ho jaye
+    video.onseeking = () => {
+        audio.pause();
+        setTimeout(() => {
+            audio.currentTime = video.currentTime;
+            if (!video.paused) audio.play();
+        }, 100); 
+    };
+
+    // Auto-Sync if gap > 0.5 seconds
+    setInterval(() => {
+        if (!video.paused && Math.abs(video.currentTime - audio.currentTime) > 0.5) {
+            audio.currentTime = video.currentTime;
+        }
+    }, 1000);
+
     video.onvolumechange = () => { 
         audio.volume = video.volume; 
         audio.muted = video.muted; 
     };
 </script>
-
 </body>
 </html>
