@@ -1,99 +1,191 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>RJN Smart Player</title>
-    <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@RJN_STORE_BOT (Web)s - Premium Downloads</title>
     <style>
-        body { background: #000; color: #fff; text-align: center; font-family: sans-serif; margin: 0; padding: 0; }
-        .container { max-width: 900px; margin: auto; padding: 20px; }
-        video { width: 100%; border-radius: 10px; border: 1px solid #444; background: #111; box-shadow: 0 0 20px rgba(0,0,0,0.5); }
-        .btn-sync { background: #e50914; color: white; border: none; padding: 12px 24px; border-radius: 5px; cursor: pointer; margin-top: 15px; font-weight: bold; font-size: 16px; transition: 0.3s; }
-        .btn-sync:hover { background: #ff0a16; transform: scale(1.05); }
-        #display-title { margin-bottom: 15px; color: #007bff; text-shadow: 0 0 10px rgba(0,123,255,0.3); }
+        /* Block Long Press/Right Click Styles */
+        .stream-now {
+            cursor: pointer;
+            user-select: none;
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            -webkit-tap-highlight-color: transparent;
+            display: inline-block;
+            margin-top: 15px;
+            padding: 10px 25px;
+            background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
+            color: #ffffff !important;
+            text-decoration: none;
+            border-radius: 50px;
+            font-size: 14px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 123, 255, 0.3);
+            border: none;
+        }
+
+        .stream-now:hover {
+            background: linear-gradient(135deg, #0056b3 0%, #004085 100%);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0, 123, 255, 0.5);
+            color: #fff;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #0f1419 0%, #1a2332 100%);
+            color: #e0e6ed;
+        }
+
+        header {
+            background: linear-gradient(90deg, #007bff 0%, #0056b3 100%);
+            padding: 20px;
+            text-align: center;
+        }
+
+        header h1 { margin: 0; font-size: 2.5em; }
+
+        nav a {
+            color: #e0e6ed;
+            margin: 0 15px;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 20px;
+        }
+
+        #movieGrid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .movie-card {
+            background: #1e293b;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+        }
+
+        .movie-info {
+            padding: 20px;
+            text-align: center;
+        }
+
+        .movie-info h3 { margin: 0 0 8px 0; }
+        .movie-info p { margin: 5px 0; color: #b0b7c3; font-size: 0.95em; }
     </style>
 </head>
 <body>
 
+<header>
+    <h1>@RJN_STORE_BOT (Web)s</h1>
+    <nav>
+        <a href="index3.html">Home</a> 
+        <a href="hollywood.html">Hollywood Latest</a>
+        <a href="live-channels.html">Live Channels</a>
+        <a href="privacy-policy.html">Privacy Policy</a>
+        <a href="us.html">About Us</a>
+        <a href="dmca.html">DMCA</a>
+    </nav>
+</header>
+
 <div class="container">
-    <h2 id="display-title">RJN Player</h2>
-    <video id="video" controls muted playsinline></video>
-    <audio id="audio"></audio>
-    <br>
-    <button class="btn-sync" onclick="startEverything()">🚀 Unmute & Play Sync</button>
+    <h2>Featured Movies</h2>
+    <input type="text" id="search" placeholder="Search movies..." style="width:100%;padding:10px;margin-bottom:20px;border-radius:5px;border:none;font-size:1em;">
+    
+    <div id="movieGrid">
+        <div class="movie-card">
+            <div class="movie-info">
+                <h3>Red One (2024)</h3>
+                <p>720p | Hindi Dubbed</p>
+                <div class="stream-now" 
+                     data-v="https://s22.nm-cdn11.top/files/81768525/720p/720p.m3u8?in=7a0765d9baa120660ee4686dfa928bdb::ab88ce218e1fde3332a2e5b1633b87c4::1773683045::ni" 
+                     data-a="https://s22.nm-cdn11.top/files/81768525/a/3/3.m3u8" 
+                     data-t="Red One" 
+                     onclick="playMovie(this)">
+                    Watch Now
+                </div>
+            </div>
+        </div>
+        <div class="movie-card">
+            <div class="movie-info">
+                <h3>War Machine (2017)</h3>
+                <p>1080p | Dual Audio</p>
+                <div class="stream-now" 
+                     data-v="VIDEO_LINK_HERE" 
+                     data-a="AUDIO_LINK_HERE" 
+                     data-t="War Machine" 
+                     onclick="playMovie(this)">
+                    Watch Now
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 <script>
-    // 1. Storage se data uthao (Brave/Soul fix ke liye localStorage zyada behtar hai)
-    const videoSrc = localStorage.getItem('videoLink') || sessionStorage.getItem('videoLink');
-    const audioSrc = localStorage.getItem('audioLink') || sessionStorage.getItem('audioLink');
-    const movieTitle = localStorage.getItem('movieTitle') || sessionStorage.getItem('movieTitle');
+/* ================= 1. SEARCH LOGIC ================= */
+const searchInput = document.getElementById('search');
+const movieGrid = document.getElementById('movieGrid');
 
-    const video = document.getElementById('video');
-    const audio = document.getElementById('audio');
-    const titleHeader = document.getElementById('display-title');
+if (searchInput && movieGrid) {
+    searchInput.addEventListener('keyup', () => {
+        const filter = searchInput.value.toLowerCase();
+        movieGrid.querySelectorAll('.movie-card').forEach(card => {
+            const title = card.querySelector('h3').textContent.toLowerCase();
+            card.style.display = title.includes(filter) ? '' : 'none';
+        });
+    });
+}
 
-    if(movieTitle && titleHeader) {
-        titleHeader.innerText = "Watching: " + movieTitle;
-    }
+/* ================= 2. MOVIE PLAY LOGIC (Double Storage Fix) ================= */
+function playMovie(element) {
+    const v = element.getAttribute('data-v');
+    const a = element.getAttribute('data-a');
+    const t = element.getAttribute('data-t');
 
-    // 2. Simple & Fast HLS Loader (Tere purane code wala logic)
-    function loadSource(el, src) {
-        if (Hls.isSupported() && src) {
-            const hls = new Hls({ 
-                enableWorker: false, // Worker off karne se sync speed badhti hai
-                manifestLoadingMaxRetry: 10
-            });
-            hls.loadSource(src);
-            hls.attachMedia(el);
-        } else if (el.canPlayType('application/vnd.apple.mpegurl')) {
-            el.src = src;
-        }
-    }
-
-    if (videoSrc && audioSrc) {
-        loadSource(video, videoSrc);
-        loadSource(audio, audioSrc);
-    } else {
-        alert("Bhai, pehle Movie select karo!");
-        window.location.href = 'index3.html'; 
-    }
-
-    // 3. ASLI SYNC LOGIC (Har 1 second mein check karega)
-    function startEverything() {
-        video.muted = false; 
-        video.play();
-        audio.play();
-        // Force Sync on start
-        audio.currentTime = video.currentTime; 
-    }
-
-    // Video play/pause hone par audio ko force sync karo
-    video.onplay = () => {
-        audio.currentTime = video.currentTime;
-        audio.play();
-    };
-    video.onpause = () => audio.pause();
+    // sessionStorage (Chrome/Brave) + localStorage (Soul/Private)
+    sessionStorage.setItem('videoLink', v);
+    sessionStorage.setItem('audioLink', a);
+    sessionStorage.setItem('movieTitle', t);
     
-    // Seeking (Forward/Backward) par 0.1s ka delay taaki audio load ho jaye
-    video.onseeking = () => {
-        audio.pause();
-        setTimeout(() => {
-            audio.currentTime = video.currentTime;
-            if (!video.paused) audio.play();
-        }, 100); 
-    };
+    localStorage.setItem('videoLink', v);
+    localStorage.setItem('audioLink', a);
+    localStorage.setItem('movieTitle', t);
 
-    // Auto-Sync if gap > 0.5 seconds
-    setInterval(() => {
-        if (!video.paused && Math.abs(video.currentTime - audio.currentTime) > 0.5) {
-            audio.currentTime = video.currentTime;
-        }
-    }, 1000);
+    window.location.href = 'player.html';
+}
 
-    video.onvolumechange = () => { 
-        audio.volume = video.volume; 
-        audio.muted = video.muted; 
+/* ================= 3. SECURITY ================= */
+document.addEventListener('contextmenu', e => e.preventDefault(), false);
+document.addEventListener('selectstart', e => e.preventDefault(), false);
+
+document.onkeydown = function(e) {
+    if(e.keyCode == 123 || (e.ctrlKey && e.shiftKey && (e.keyCode == 73 || e.keyCode == 67 || e.keyCode == 74)) || (e.ctrlKey && e.keyCode == 85)) {
+        return false;
+    }
+};
+
+/* ================= 4. MOBILE LONG PRESS FIX ================= */
+document.querySelectorAll('.stream-now').forEach(btn => {
+    btn.oncontextmenu = function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        return false;
     };
+});
 </script>
+
 </body>
 </html>
