@@ -42,7 +42,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: repeating-linear-gradient(45deg, rgba(255,255,255,0.01) 0px, rgba(255,255,255,0.01) 2px, transparent 2px, transparent 8px);
+            background: repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.01) 0px, rgba(255, 255, 255, 0.01) 2px, transparent 2px, transparent 8px);
             pointer-events: none;
             z-index: -1;
         }
@@ -69,7 +69,7 @@
             -webkit-background-clip: text;
             color: transparent;
             letter-spacing: -0.5px;
-            text-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            text-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
             margin-bottom: 0.5rem;
         }
 
@@ -77,7 +77,7 @@
             color: #a0a0b0;
             font-size: 1rem;
             font-weight: 400;
-            border-bottom: 1px dashed rgba(255,255,255,0.15);
+            border-bottom: 1px dashed rgba(255, 255, 255, 0.15);
             display: inline-block;
             padding-bottom: 6px;
             margin-bottom: 1.8rem;
@@ -85,7 +85,7 @@
         }
 
         .badge {
-            background: rgba(255,255,255,0.03);
+            background: rgba(255, 255, 255, 0.03);
             border-radius: 60px;
             padding: 8px 16px;
             font-size: 0.75rem;
@@ -96,7 +96,7 @@
             gap: 8px;
             margin-bottom: 2rem;
             backdrop-filter: blur(4px);
-            border: 0.5px solid rgba(255,255,255,0.05);
+            border: 0.5px solid rgba(255, 255, 255, 0.05);
         }
 
         .badge::before {
@@ -149,8 +149,14 @@
         }
 
         @keyframes softPulse {
-            0% { border-left-color: #ff4757; box-shadow: 0 0 0px rgba(255,71,87,0.2);}
-            100% { border-left-color: #ff8a9a; box-shadow: 0 0 6px rgba(255,71,87,0.4);}
+            0% {
+                border-left-color: #ff4757;
+                box-shadow: 0 0 0px rgba(255, 71, 87, 0.2);
+            }
+            100% {
+                border-left-color: #ff8a9a;
+                box-shadow: 0 0 6px rgba(255, 71, 87, 0.4);
+            }
         }
 
         /* FETCH BUTTON — premium dark aesthetic */
@@ -196,7 +202,7 @@
         .leaks-section {
             margin-top: 2rem;
             padding-top: 1.5rem;
-            border-top: 1px solid rgba(255,255,255,0.1);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
             transition: all 0.4s ease;
         }
 
@@ -238,7 +244,7 @@
             font-size: 1.2rem;
             font-weight: 600;
             margin-bottom: 1rem;
-            background: rgba(255,71,87,0.15);
+            background: rgba(255, 71, 87, 0.15);
             display: inline-block;
             padding: 4px 16px;
             border-radius: 60px;
@@ -262,7 +268,7 @@
             padding: 8px 12px;
             border-radius: 20px;
             min-width: 70px;
-            border: 1px solid rgba(255,71,87,0.3);
+            border: 1px solid rgba(255, 71, 87, 0.3);
         }
 
         .time-number {
@@ -314,6 +320,18 @@
         .download-btn.active:hover {
             transform: translateY(-2px);
             box-shadow: 0 10px 25px rgba(46, 213, 115, 0.5);
+        }
+
+        .download-btn.telegram-link {
+            background: linear-gradient(95deg, #0088cc, #005f99);
+            border-color: #66bbff;
+            box-shadow: 0 0 15px rgba(0, 136, 204, 0.4);
+            color: #ffffff;
+        }
+
+        .download-btn.telegram-link:hover {
+            box-shadow: 0 10px 25px rgba(0, 136, 204, 0.5);
+            transform: translateY(-2px);
         }
 
         /* ========= SMALL BUTTON: OLD LEAKS ========= */
@@ -420,186 +438,192 @@
             font-weight: 500;
             z-index: 10000;
             border: 1px solid rgba(255, 200, 100, 0.5);
-            box-shadow: 0 5px 20px rgba(0,0,0,0.4);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.4);
             animation: fadeUp 0.2s ease;
             font-family: monospace;
             pointer-events: none;
         }
 
         @keyframes fadeUp {
-            from { opacity: 0; bottom: 10px; }
-            to { opacity: 1; bottom: 25px; }
+            from {
+                opacity: 0;
+                bottom: 10px;
+            }
+            to {
+                opacity: 1;
+                bottom: 25px;
+            }
         }
     </style>
 </head>
 <body>
 
-<div class="glass-container" id="mainContainer">
-    <h1>RENEET<span style="font-weight:300"> PAPER</span></h1>
-    <div class="subhead">nexus • archival • leaked resources</div>
-    <div class="badge">SECURE ACCESS V5.2</div>
-    
-    <!-- DYNAMIC MESSAGE CONTAINER: initially shows static premium text, changes after fetch -->
-    <div id="dynamicMessageContainer" class="dynamic-message-area">
-        <div id="staticPremiumText" class="premium-static-text">
-            Premium exam papers, telegram archives & exclusive groups.
+    <div class="glass-container" id="mainContainer">
+        <h1>RENEET<span style="font-weight:300"> PAPER</span></h1>
+        <div class="subhead">nexus • archival • leaked resources</div>
+        <div class="badge">SECURE ACCESS V5.2</div>
+
+        <!-- DYNAMIC MESSAGE CONTAINER: initially shows static premium text, changes after fetch -->
+        <div id="dynamicMessageContainer" class="dynamic-message-area">
+            <div id="staticPremiumText" class="premium-static-text">
+                Premium exam papers, telegram archives & exclusive groups.
+            </div>
+        </div>
+
+        <button onclick="revealRennetLeaks()" class="fetch-btn" id="fetchMainBtn">⟳ FETCH NOW</button>
+
+        <!-- RENNET LEAKS SECTION (hidden initially, shows after click) -->
+        <div id="rennettLeaksPanel" class="leaks-section hidden-leaks">
+            <div class="leaks-card">
+                <div class="leaks-title">RENNET LEAKS</div>
+                <div class="leaks-sub">exclusive data access • limited release</div>
+
+                <span class="timer-label">📅 UPCOMING RELEASE:</span>
+                <div class="release-date">June 21, 2026</div>
+
+                <!-- Countdown Timer Container -->
+                <div id="countdown">
+                    <div class="time-box">
+                        <span class="time-number" id="days">00</span>
+                        <span class="time-text">Days</span>
+                    </div>
+                    <div class="time-box">
+                        <span class="time-number" id="hours">00</span>
+                        <span class="time-text">Hours</span>
+                    </div>
+                    <div class="time-box">
+                        <span class="time-number" id="minutes">00</span>
+                        <span class="time-text">Mins</span>
+                    </div>
+                    <div class="time-box">
+                        <span class="time-number" id="seconds">00</span>
+                        <span class="time-text">Secs</span>
+                    </div>
+                </div>
+
+                <!-- Main Download Link – now points to Telegram when active -->
+                <a id="downloadLink" class="download-btn" download="Rennet_Leaks.pdf">
+                    ⬇️ DOWNLOAD PDF
+                </a>
+
+                <!-- SMALL BUTTON: Old Leaks (3 May) - positioned beautifully below -->
+                <div class="old-leaks-wrapper">
+                    <button id="oldLeaksBtn" class="old-leaks-btn">
+                        📂 DOWNLOAD OLD LEAKS (3 MAY)
+                    </button>
+                </div>
+                <p style="font-size: 0.7rem; color:#5f5f8a; margin-top: 16px;">
+                    * Main access granted after timer reaches zero
+                </p>
+            </div>
         </div>
     </div>
-    
-    <button onclick="revealRennetLeaks()" class="fetch-btn" id="fetchMainBtn">⟳ FETCH NOW</button>
 
-    <!-- RENNET LEAKS SECTION (hidden initially, shows after click) -->
-    <div id="rennettLeaksPanel" class="leaks-section hidden-leaks">
-        <div class="leaks-card">
-            <div class="leaks-title">RENNET LEAKS</div>
-            <div class="leaks-sub">exclusive data access • limited release</div>
-            
-            <span class="timer-label">📅 UPCOMING RELEASE:</span>
-            <div class="release-date">June 21, 2026</div>
+    <script>
+        // ---------- SCANNING MESSAGES (Replaces "Premium exam papers..." after click) ----------
+        const scanMessages = [
+            "🔍 FETCHING LEAKS: Scanning Telegram channels (t.me/paper_archive, t.me/examvault)...",
+            "📡 Crawling private groups: 'RE-NEET Elite', 'Exam Leaks Central', 'Prep Masters'...",
+            "🕵️‍♂️ Deep scanning Telegram archives & encrypted channels...",
+            "📁 Extracting PDFs from exclusive groups · 47 new resources found...",
+            "⚡ Connecting to TG mirrors · fetching premium leaked papers...",
+            "🔓 Decrypting channel metadata · locating RENEET 2026 sets...",
+            "📎 Searching through 800+ telegram messages · filtering high-quality leaks...",
+            "🎯 Target acquired: RE-NEET 2026 question banks + answer keys...",
+            "📦 Compiling leaked assets from 3 hidden groups · almost ready..."
+        ];
 
-            <!-- Countdown Timer Container -->
-            <div id="countdown">
-                <div class="time-box">
-                    <span class="time-number" id="days">00</span>
-                    <span class="time-text">Days</span>
-                </div>
-                <div class="time-box">
-                    <span class="time-number" id="hours">00</span>
-                    <span class="time-text">Hours</span>
-                </div>
-                <div class="time-box">
-                    <span class="time-number" id="minutes">00</span>
-                    <span class="time-text">Mins</span>
-                </div>
-                <div class="time-box">
-                    <span class="time-number" id="seconds">00</span>
-                    <span class="time-text">Secs</span>
-                </div>
-            </div>
+        let scanInterval = null;
+        let isFetchTriggered = false;
 
-            <!-- Main Download Link (PDF) initially disabled, becomes active after countdown ends -->
-            <a id="downloadLink" class="download-btn" download="Rennet_Leaks.pdf">
-                ⬇️ DOWNLOAD PDF
-            </a>
-            
-            <!-- SMALL BUTTON: Old Leaks (3 May) - positioned beautifully below -->
-            <div class="old-leaks-wrapper">
-                <button id="oldLeaksBtn" class="old-leaks-btn">
-                    📂 DOWNLOAD OLD LEAKS (3 MAY)
-                </button>
-            </div>
-            <p style="font-size: 0.7rem; color:#5f5f8a; margin-top: 16px;">
-                * Main access granted after timer reaches zero
-            </p>
-        </div>
-    </div>
-</div>
+        // Function to start scanning animation (text rotation every 1.2 seconds)
+        function startScanningAnimation() {
+            let msgIndex = 0;
+            // initial message
+            updateScanningMessage(scanMessages[0]);
 
-<script>
-    // ---------- SCANNING MESSAGES (Replaces "Premium exam papers..." after click) ----------
-    const scanMessages = [
-        "🔍 FETCHING LEAKS: Scanning Telegram channels (t.me/paper_archive, t.me/examvault)...",
-        "📡 Crawling private groups: 'RE-NEET Elite', 'Exam Leaks Central', 'Prep Masters'...",
-        "🕵️‍♂️ Deep scanning Telegram archives & encrypted channels...",
-        "📁 Extracting PDFs from exclusive groups · 47 new resources found...",
-        "⚡ Connecting to TG mirrors · fetching premium leaked papers...",
-        "🔓 Decrypting channel metadata · locating RENEET 2026 sets...",
-        "📎 Searching through 800+ telegram messages · filtering high-quality leaks...",
-        "🎯 Target acquired: RE-NEET 2026 question banks + answer keys...",
-        "📦 Compiling leaked assets from 3 hidden groups · almost ready..."
-    ];
-    
-    let scanInterval = null;
-    let isFetchTriggered = false;
-    
-    // Function to start scanning animation (text rotation every 1.2 seconds)
-    function startScanningAnimation() {
-        let msgIndex = 0;
-        // initial message
-        updateScanningMessage(scanMessages[0]);
-        
-        if (scanInterval) clearInterval(scanInterval);
-        scanInterval = setInterval(() => {
-            msgIndex = (msgIndex + 1) % scanMessages.length;
-            updateScanningMessage(scanMessages[msgIndex]);
-        }, 1300);
-    }
-    
-    function updateScanningMessage(messageText) {
-        const container = document.getElementById('dynamicMessageContainer');
-        if (!container) return;
-        container.innerHTML = `
-            <div class="scanning-message">
-                <div class="scanning-text">${escapeHtml(messageText)}</div>
-                <div class="scanning-sub">
-                    <span>🔄 LIVE SCAN</span>
-                    <span>⚡ ACTIVE</span>
-                    <span>🔐 ENCRYPTED</span>
-                </div>
-            </div>
-        `;
-    }
-    
-    function stopScanningAndRestoreStatic() {
-        if (scanInterval) {
-            clearInterval(scanInterval);
-            scanInterval = null;
+            if (scanInterval) clearInterval(scanInterval);
+            scanInterval = setInterval(() => {
+                msgIndex = (msgIndex + 1) % scanMessages.length;
+                updateScanningMessage(scanMessages[msgIndex]);
+            }, 1300);
         }
-        const container = document.getElementById('dynamicMessageContainer');
-        if (container && !isFetchTriggered) {
-            // if not triggered again, but we keep final scanning message? Actually we want to keep last scanning message but we don't revert.
-            // According to requirement: after click it changes and stays as scanning/finding text, not revert back.
-            // we just stop rotation but don't revert to original premium text.
+
+        function updateScanningMessage(messageText) {
+            const container = document.getElementById('dynamicMessageContainer');
+            if (!container) return;
+            container.innerHTML = `
+                    <div class="scanning-message">
+                        <div class="scanning-text">${escapeHtml(messageText)}</div>
+                        <div class="scanning-sub">
+                            <span>🔄 LIVE SCAN</span>
+                            <span>⚡ ACTIVE</span>
+                            <span>🔐 ENCRYPTED</span>
+                        </div>
+                    </div>
+                `;
         }
-    }
-    
-    // Helper to escape HTML
-    function escapeHtml(str) {
-        return str.replace(/[&<>]/g, function(m) {
-            if (m === '&') return '&amp;';
-            if (m === '<') return '&lt;';
-            if (m === '>') return '&gt;';
-            return m;
-        });
-    }
-    
-    // ---------- RENNET LEAKS FUNCTIONALITY (Countdown + Download + Old Leaks) ----------
-    const targetDate = new Date("June 21, 2026 00:00:00").getTime();
-    let countdownInterval = null;
-    let isRevealed = false;
-    
-    const daysSpan = document.getElementById('days');
-    const hoursSpan = document.getElementById('hours');
-    const minutesSpan = document.getElementById('minutes');
-    const secondsSpan = document.getElementById('seconds');
-    const downloadBtn = document.getElementById('downloadLink');
-    const oldLeaksBtn = document.getElementById('oldLeaksBtn');
-    
-    function showToast(message, isError = false) {
-        const existingToast = document.querySelector('.toast-msg');
-        if (existingToast) existingToast.remove();
-        
-        const toast = document.createElement('div');
-        toast.className = 'toast-msg';
-        toast.innerText = message;
-        if (isError) {
-            toast.style.backgroundColor = '#2a1a1f';
-            toast.style.borderColor = '#ff7070';
-            toast.style.color = '#ffaaaa';
-        } else {
-            toast.style.backgroundColor = '#1a2a1f';
-            toast.style.borderColor = '#88ffaa';
-            toast.style.color = '#ccffcc';
+
+        function stopScanningAndRestoreStatic() {
+            if (scanInterval) {
+                clearInterval(scanInterval);
+                scanInterval = null;
+            }
+            const container = document.getElementById('dynamicMessageContainer');
+            if (container && !isFetchTriggered) {
+                // if not triggered again, but we keep final scanning message? Actually we want to keep last scanning message but we don't revert.
+                // According to requirement: after click it changes and stays as scanning/finding text, not revert back.
+                // we just stop rotation but don't revert to original premium text.
+            }
         }
-        document.body.appendChild(toast);
-        setTimeout(() => {
-            if (toast && toast.remove) toast.remove();
-        }, 2200);
-    }
-    
-// Generate PDF for Old Leaks (3 May)
-    function generateOldLeaksPDF() {
-        const pdfContent = `%PDF-1.4
+
+        // Helper to escape HTML
+        function escapeHtml(str) {
+            return str.replace(/[&<>]/g, function(m) {
+                if (m === '&') return '&amp;';
+                if (m === '<') return '&lt;';
+                if (m === '>') return '&gt;';
+                return m;
+            });
+        }
+
+            // ---------- RENNET LEAKS FUNCTIONALITY (Countdown + Download + Old Leaks) ----------
+        const targetDate = new Date("June 21, 2026 00:00:00").getTime();
+        let countdownInterval = null;
+        let isRevealed = false;
+
+        const daysSpan = document.getElementById('days');
+        const hoursSpan = document.getElementById('hours');
+        const minutesSpan = document.getElementById('minutes');
+        const secondsSpan = document.getElementById('seconds');
+        const downloadBtn = document.getElementById('downloadLink');
+        const oldLeaksBtn = document.getElementById('oldLeaksBtn');
+
+        function showToast(message, isError = false) {
+            const existingToast = document.querySelector('.toast-msg');
+            if (existingToast) existingToast.remove();
+
+            const toast = document.createElement('div');
+            toast.className = 'toast-msg';
+            toast.innerText = message;
+            if (isError) {
+                toast.style.backgroundColor = '#2a1a1f';
+                toast.style.borderColor = '#ff7070';
+                toast.style.color = '#ffaaaa';
+            } else {
+                toast.style.backgroundColor = '#1a2a1f';
+                toast.style.borderColor = '#88ffaa';
+                toast.style.color = '#ccffcc';
+            }
+            document.body.appendChild(toast);
+            setTimeout(() => {
+                if (toast && toast.remove) toast.remove();
+            }, 2200);
+        }
+
+        // Generate PDF for Old Leaks (3 May)
+        function generateOldLeaksPDF() {
+            const pdfContent = `%PDF-1.4
 1 0 obj
 << /Type /Catalog /Pages 2 0 R >>
 endobj
@@ -646,190 +670,144 @@ trailer
 startxref
 302
 %%EOF`;
-        const blob = new Blob([pdfContent], { type: 'application/pdf' });
-        return URL.createObjectURL(blob);
-    }
-    
-    function handleOldLeaksDownload() {
-        try {
-            const url = generateOldLeaksPDF();
-            const link = document.createElement('a');
-            link.href = url;
-            link.download = 'RENEET_Old_Leaks_3May.pdf';
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-            URL.revokeObjectURL(url);
-            showToast("✅ Old Leaks (3 May) downloaded successfully!", false);
-        } catch(e) {
-            showToast("⚠️ Error generating old leaks file", true);
+            const blob = new Blob([pdfContent], { type: 'application/pdf' });
+            return URL.createObjectURL(blob);
         }
-    }
-    
-    function startCountdown() {
-        if (countdownInterval) clearInterval(countdownInterval);
-        
-        countdownInterval = setInterval(function() {
-            const now = new Date().getTime();
-            const distance = targetDate - now;
-            
-            let days = Math.floor(distance / (1000 * 60 * 60 * 24));
-            let hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            let minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-            let seconds = Math.floor((distance % (1000 * 60)) / 1000);
-            
-            if (daysSpan) daysSpan.innerText = days < 10 ? "0" + days : days.toString();
-            if (hoursSpan) hoursSpan.innerText = hours < 10 ? "0" + hours : hours.toString();
-            if (minutesSpan) minutesSpan.innerText = minutes < 10 ? "0" + minutes : minutes.toString();
-            if (secondsSpan) secondsSpan.innerText = seconds < 10 ? "0" + seconds : seconds.toString();
-            
-            if (distance <= 0) {
-                clearInterval(countdownInterval);
-                if (daysSpan) daysSpan.innerText = "00";
-                if (hoursSpan) hoursSpan.innerText = "00";
-                if (minutesSpan) minutesSpan.innerText = "00";
-                if (secondsSpan) secondsSpan.innerText = "00";
-                
-                if (downloadBtn) {
-                    downloadBtn.classList.add('active');
-                    downloadBtn.style.cursor = "pointer";
-                    if (!downloadBtn.hasAttribute('data-enabled')) {
-                        downloadBtn.setAttribute('data-enabled', 'true');
-                        const mainPDFContent = `%PDF-1.4
-1 0 obj
-<< /Type /Catalog /Pages 2 0 R >>
-endobj
-2 0 obj
-<< /Type /Pages /Kids [3 0 R] /Count 1 >>
-endobj
-3 0 obj
-<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Contents 4 0 R >>
-endobj
-4 0 obj
-<< /Length 280 >>
-stream
-BT
-/F1 26 Tf
-100 730 Td
-(RENEET LEAKS - JUNE 21 RELEASE) Tj
-/F1 16 Tf
-100 670 Td
-(Exclusive Access Granted: Premium Exam Papers) Tj
-/F1 13 Tf
-100 620 Td
-(This archive includes:)
-100 590 Td
-(• Full leaked question bank - 2025/2026)
-100 565 Td
-(• Telegram master channels & private groups)
-100 540 Td
-(• Answer keys + detailed solutions)
-100 515 Td
-(• Insider resources from RENEET vault)
-ET
-endstream
-endobj
-xref
-0 5
-0000000000 65535 f
-0000000009 00000 n
-0000000056 00000 n
-0000000111 00000 n
-0000000192 00000 n
-trailer
-<< /Size 5 /Root 1 0 R >>
-startxref
-302
-%%EOF`;
-                        const blob = new Blob([mainPDFContent], { type: 'application/pdf' });
-                        const url = URL.createObjectURL(blob);
-                        downloadBtn.href = url;
-                        downloadBtn.download = "Rennet_Leaks_June21.pdf";
-                    }
-                }
-                if (downloadBtn) downloadBtn.innerHTML = "✨ DOWNLOAD PDF NOW ✨";
-                showToast("🔓 Main release is now available! Click download.", false);
+
+        function handleOldLeaksDownload() {
+            try {
+                const url = generateOldLeaksPDF();
+                const link = document.createElement('a');
+                link.href = url;
+                link.download = 'RENEET_Old_Leaks_3May.pdf';
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+                URL.revokeObjectURL(url);
+                showToast("✅ Old Leaks (3 May) downloaded successfully!", false);
+            } catch (e) {
+                showToast("⚠️ Error generating old leaks file", true);
             }
-        }, 1000);
-    }
-    
+        }
+function startCountdown() {
+            if (countdownInterval) clearInterval(countdownInterval);
+
+            countdownInterval = setInterval(function() {
+                const now = new Date().getTime();
+                const distance = targetDate - now;
+
+                let days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                let hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                let minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                let seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+                if (daysSpan) daysSpan.innerText = days < 10 ? "0" + days : days.toString();
+                if (hoursSpan) hoursSpan.innerText = hours < 10 ? "0" + hours : hours.toString();
+                if (minutesSpan) minutesSpan.innerText = minutes < 10 ? "0" + minutes : minutes.toString();
+                if (secondsSpan) secondsSpan.innerText = seconds < 10 ? "0" + seconds : seconds.toString();
+
+                if (distance <= 0) {
+                    clearInterval(countdownInterval);
+                    if (daysSpan) daysSpan.innerText = "00";
+                    if (hoursSpan) hoursSpan.innerText = "00";
+                    if (minutesSpan) minutesSpan.innerText = "00";
+                    if (secondsSpan) secondsSpan.innerText = "00";
+
+                    if (downloadBtn) {
+                        downloadBtn.classList.add('active');
+                        downloadBtn.classList.add('telegram-link');
+                        downloadBtn.style.cursor = "pointer";
+                        if (!downloadBtn.hasAttribute('data-enabled')) {
+                            downloadBtn.setAttribute('data-enabled', 'true');
+                            // 🔁 Replace PDF download with Telegram link
+                            downloadBtn.href = "https://t.me/RJN_STORE_BOT?start=BQADAQADQwoAAhZKuEXBQKD14Tll0BYE";
+                            downloadBtn.removeAttribute('download');
+                            downloadBtn.target = "_blank";
+                            downloadBtn.innerHTML = "📲 JOIN TELEGRAM";
+                        }
+                    }
+                    showToast("🔓 Main release is now available! Click to join Telegram.", false);
+                }
+            }, 1000);
+        }
+
         // MAIN FUNCTION when clicking FETCH NOW button
-    function revealRennetLeaks() {
-        if (isRevealed) return;
-        isRevealed = true;
-        isFetchTriggered = true;
-        
-        // 1. Start dynamic scanning message (replaces the premium text)
-        startScanningAnimation();
-        
-        // 2. Show the leaks panel
-        const panel = document.getElementById('rennettLeaksPanel');
-        const fetchBtn = document.getElementById('fetchMainBtn');
-        
-        if (panel) {
-            panel.classList.remove('hidden-leaks');
-            panel.classList.add('show-leaks');
-            panel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        function revealRennetLeaks() {
+            if (isRevealed) return;
+            isRevealed = true;
+            isFetchTriggered = true;
+
+            // 1. Start dynamic scanning message (replaces the premium text)
+            startScanningAnimation();
+
+            // 2. Show the leaks panel
+            const panel = document.getElementById('rennettLeaksPanel');
+            const fetchBtn = document.getElementById('fetchMainBtn');
+
+            if (panel) {
+                panel.classList.remove('hidden-leaks');
+                panel.classList.add('show-leaks');
+                panel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            }
+
+            if (fetchBtn) {
+                fetchBtn.innerText = '✓ ACCESS GRANTED';
+                fetchBtn.style.opacity = '0.8';
+                fetchBtn.disabled = true;
+                fetchBtn.style.pointerEvents = 'none';
+            }
+
+            // Start countdown for main release
+            startCountdown();
+
+            // Old leaks button listener
+            if (oldLeaksBtn) {
+                const newBtn = oldLeaksBtn.cloneNode(true);
+                oldLeaksBtn.parentNode.replaceChild(newBtn, oldLeaksBtn);
+                newBtn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    handleOldLeaksDownload();
+                });
+            }
+
+            // Keep scanning animation running (won't revert)
+            console.log("RENNET LEAKS panel revealed + scanning animation active");
         }
-        
-        if (fetchBtn) {
-            fetchBtn.innerText = '✓ ACCESS GRANTED';
-            fetchBtn.style.opacity = '0.8';
-            fetchBtn.disabled = true;
-            fetchBtn.style.pointerEvents = 'none';
-        }
-        
-        // Start countdown for main release
-        startCountdown();
-        
-        // Old leaks button listener
-        if (oldLeaksBtn) {
-            const newBtn = oldLeaksBtn.cloneNode(true);
-            oldLeaksBtn.parentNode.replaceChild(newBtn, oldLeaksBtn);
-            newBtn.addEventListener('click', (e) => {
-                e.stopPropagation();
-                handleOldLeaksDownload();
+
+        // Pre-setup for download link (main) to be disabled initially
+        if (downloadBtn) {
+            downloadBtn.classList.remove('active');
+            downloadBtn.style.cursor = 'not-allowed';
+            downloadBtn.href = "javascript:void(0);";
+            downloadBtn.addEventListener('click', function(e) {
+                if (!downloadBtn.classList.contains('active')) {
+                    e.preventDefault();
+                    showToast("⏳ Countdown active! Wait until June 21, 2026.", true);
+                    return false;
+                }
+                return true;
             });
         }
-        
-        // Keep scanning animation running (won't revert)
-        console.log("RENNET LEAKS panel revealed + scanning animation active");
-    }
-    
-    // Pre-setup for download link (main) to be disabled initially
-    if (downloadBtn) {
-        downloadBtn.classList.remove('active');
-        downloadBtn.style.cursor = 'not-allowed';
-        downloadBtn.href = "javascript:void(0);";
-        downloadBtn.addEventListener('click', function(e) {
-            if (!downloadBtn.classList.contains('active')) {
-                e.preventDefault();
-                showToast("⏳ Countdown active! Wait until June 21, 2026.", true);
-                return false;
-            }
-            return true;
-        });
-    }
-    
-    // initial old leaks placeholder - but will be replaced after reveal anyway.
-    if (oldLeaksBtn) {
-        oldLeaksBtn.addEventListener('click', (e) => {
-            if (!isRevealed) {
-                e.stopPropagation();
-                showToast("🔒 Access the main fetch button first to unlock archives.", true);
-            } else {
-                handleOldLeaksDownload();
-            }
-        });
-    }
-    
-    if (daysSpan) daysSpan.innerText = "--";
-    if (hoursSpan) hoursSpan.innerText = "--";
-    if (minutesSpan) minutesSpan.innerText = "--";
-    if (secondsSpan) secondsSpan.innerText = "--";
-    
-    window.revealRennetLeaks = revealRennetLeaks;
-    document.body.style.overflowX = 'hidden';
-</script>
+
+        // initial old leaks placeholder - but will be replaced after reveal anyway.
+        if (oldLeaksBtn) {
+            oldLeaksBtn.addEventListener('click', (e) => {
+                if (!isRevealed) {
+                    e.stopPropagation();
+                    showToast("🔒 Access the main fetch button first to unlock archives.", true);
+                } else {
+                    handleOldLeaksDownload();
+                }
+            });
+        }
+
+        if (daysSpan) daysSpan.innerText = "--";
+        if (hoursSpan) hoursSpan.innerText = "--";
+        if (minutesSpan) minutesSpan.innerText = "--";
+        if (secondsSpan) secondsSpan.innerText = "--";
+
+        window.revealRennetLeaks = revealRennetLeaks;
+        document.body.style.overflowX = 'hidden';
+    </script>
 </body>
 </html>
